@@ -213,24 +213,24 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     int tTag = [self bareTagOfView:tView];
     if (tTag > 0) {
         if (tTag == self.hoverTag) {
-            // dieser Button ist bereits aktiv
+            // this button is already the active one
             return;
         }
         
         self.hoverTag = tTag;
         
-        // alle (anderen) Buttons normal darstellen
+        // display all (other) buttons in normal state
         for (int i = 1; i <= self.buttons.count; i++) {
             UIView* tView = [self viewWithTag:i + TAG_INNER_VIEW_OFFSET];
             tView.backgroundColor = self.innerViewColor;
         }
         
-        // den aktiven Button einfaerben
+        // display this button in active color
         tTag = tTag + TAG_INNER_VIEW_OFFSET;
         UIView* tInnerView = [self viewWithTag:tTag];
         tInnerView.backgroundColor = self.innerViewActiveColor;
     } else {
-        // "getroffener" View ist keiner der Buttons -> alle normal darstellen
+        // the view "hit" is none of the buttons -> display all in normal state
         for (int i = 1; i <= self.buttons.count; i++) {
             UIView* tView = [self viewWithTag:i + TAG_INNER_VIEW_OFFSET];
             tView.backgroundColor = self.innerViewColor;

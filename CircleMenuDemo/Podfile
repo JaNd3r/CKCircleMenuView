@@ -1,0 +1,3 @@
+platform :ios, '7.1'
+
+pod 'CKCircleMenuView', :path => "../CKCircleMenuView.podspec"

@@ -23,10 +23,14 @@
 
 @end
 
+// each button is made up of three views (button image, background and border)
+// the buttons get tagged, starting at 1
+// components are identified by adding the corresponding offset to the button's tag
 static int TAG_BUTTON_OFFSET = 100;
 static int TAG_INNER_VIEW_OFFSET = 1000;
 static int TAG_BORDER_OFFSET = 10000;
 
+// constants used for the configuration dictionary
 NSString* const CIRCLE_MENU_BUTTON_BACKGROUND_NORMAL = @"kCircleMenuNormal";
 NSString* const CIRCLE_MENU_BUTTON_BACKGROUND_ACTIVE = @"kCircleMenuActive";
 NSString* const CIRCLE_MENU_BUTTON_BORDER = @"kCircleMenuBorder";
@@ -64,7 +68,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
                     break;
             }
         } else {
-            // using default colors
+            // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
             self.innerViewActiveColor = [UIColor colorWithRed:0.25 green:0.5 blue:0.75 alpha:1.0];
             self.borderViewColor = [UIColor whiteColor];
@@ -110,6 +114,13 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     return self;
 }
 
+/**
+ * Convenience method that creates a circle button, consisting of
+ * the image, a background and a border.
+ * @param anImage image to be used as button's icon
+ * @param aTag unique identifier (should be index + 1)
+ * @return UIView to be used as button
+ */
 - (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag
 {
     UIButton* tButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -136,6 +147,9 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     return tBorderView;
 }
 
+/**
+ * Does the math to put buttons on a circle.
+ */
 - (void)calculateButtonPositions
 {
     int tButtonCount = (int)self.buttons.count;
@@ -163,6 +177,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
 - (void)openMenuWithRecognizer:(UILongPressGestureRecognizer*)aRecognizer
 {
     self.recognizer = aRecognizer;
+    // use target action to get notified upon gesture changes
     [aRecognizer addTarget:self action:@selector(gestureChanged:)];
     
     CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
@@ -189,6 +204,9 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     }
 }
 
+/**
+ * Performs the closing animation.
+ */
 - (void)closeMenu
 {
     [self.recognizer removeTarget:self action:@selector(gestureChanged:)];
@@ -240,12 +258,17 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     }
 }
 
+/**
+ * Target action method that gets called when the gesture used to open
+ * the CKCircleMenuView changes.
+ */
 - (void)gestureChanged:(UILongPressGestureRecognizer*)sender
 {
     if (sender.state == UIGestureRecognizerStateChanged) {
         CGPoint tPoint = [sender locationInView:self];
         [self gestureMovedToPoint:tPoint];
     } else if (sender.state == UIGestureRecognizerStateEnded) {
+        // determine wether a button was hit when the gesture ended
         CGPoint tPoint = [sender locationInView:self];
         UIView* tView = [self hitTest:tPoint withEvent:nil];
         int tTag = [self bareTagOfView:tView];
@@ -258,6 +281,12 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     }
 }
 
+/**
+ * Return the 'virtual' tag of the button, no matter which of its components
+ * (image, background, border) is passed as argument.
+ * @param aView view to be examined
+ * @return 'virtual' tag without offsets
+ */
 - (int)bareTagOfView:(UIView*)aView
 {
     int tTag = (int)aView.tag;

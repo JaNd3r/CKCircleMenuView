@@ -20,6 +20,7 @@ There are several options that can be adjusted before presenting the menu.
 * Angle to be used for button placement (default = 180 degrees)
 * Direction of the angle's center (default = `CircleMenuDirectionUp`)
 * Radius of the button alignment (default = 65)
+* Delay between button animations (default = 0.0 ms)
 
 ## Usage
 

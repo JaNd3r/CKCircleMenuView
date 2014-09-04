@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
                    activated.
                    DESC
 
-  s.homepage     = "http://github.com/JaNd3r/CKCircleMenuView"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.homepage     = "https://github.com/JaNd3r/CKCircleMenuView"
+  s.screenshots  = "https://raw.githubusercontent.com/JaNd3r/CKCircleMenuView/master/CircleMenuDemo1.gif", "https://raw.githubusercontent.com/JaNd3r/CKCircleMenuView/master/CircleMenuDemo1.gif"
 
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Christian Klaproth" => "ck@cm-works.de" }
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.requires_arc = true
 
-  s.source       = { :git => "http://github.com/JaNd3r/CKCircleMenuView.git", :tag => "0.1.0" }
+  s.source       = { :git => "https://github.com/JaNd3r/CKCircleMenuView.git", :tag => "0.1.0" }
 
   s.source_files  = "CKCircleMenuView/*.{h,m}"
 

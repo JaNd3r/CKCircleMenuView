@@ -3,6 +3,9 @@ CKCircleMenuView
 
 Well, it's a circle menu. Kind of. For iOS.
 
+[![Version](https://cocoapod-badges.herokuapp.com/v/CKCircleMenuView/badge.png)](http://cocoadocs.org/docsets/CKCircleMenuView)
+[![Platform](https://cocoapod-badges.herokuapp.com/p/CKCircleMenuView/badge.png)](http://cocoadocs.org/docsets/CKCircleMenuView)
+
 The idea is to keep your UI simple and clean and show buttons to the user when they are needed. The following screenshot is taken from the demo app I have provided in this repository. Simply clone this repo and call `pod install` within the CircleViewDemo folder. The circle menu is opened via a `UILongPressGesture`. As long as the user holds down his finger, the menu will remain open. Buttons are selected via dragging on the button and releasing the finger.
 
 ![](CircleMenuDemo1.gif) &nbsp; ![](CircleMenuDemo2.gif)

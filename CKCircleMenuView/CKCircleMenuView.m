@@ -192,9 +192,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
 
     CGFloat tDelay = 0.0;
     for (UIView* tButtonView in self.buttons) {
-        if (self.animationDelay) {
-            tDelay = tDelay + 0.1;
-        }
+        tDelay = tDelay + self.animationDelay;
         [UIView animateWithDuration:0.6 delay:tDelay usingSpringWithDamping:0.5 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseOut animations:^{
             tButtonView.alpha = 1.0;
             tButtonView.transform = CGAffineTransformIdentity;

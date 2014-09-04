@@ -8,3 +8,8 @@
 
 CircleMenuDemo/CircleMenuDemo.xcodeproj/project.xcworkspace/xcuserdata/*
 CircleMenuDemo/CircleMenuDemo.xcodeproj/xcuserdata/*
+
+*.lock
+
+CircleMenuDemo/Pods
+CircleMenuDemo/CircleMenuDemo.xcworkspace

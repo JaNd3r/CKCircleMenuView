@@ -85,3 +85,8 @@ typedef enum {
 - (void)closeMenu;
 
 @end
+
+@interface CKRoundView : UIView
+
+@end
+

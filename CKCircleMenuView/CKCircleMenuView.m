@@ -128,7 +128,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     [tButton setImage:anImage forState:UIControlStateNormal];
     tButton.tag = aTag + TAG_BUTTON_OFFSET;
     
-    UIView* tInnerView = [[UIView alloc] initWithFrame:CGRectMake(2.0, 2.0, 74.0, 74.0)];
+    UIView* tInnerView = [[CKRoundView alloc] initWithFrame:CGRectMake(2.0, 2.0, 74.0, 74.0)];
     tInnerView.backgroundColor = self.innerViewColor;
     tInnerView.opaque = YES;
     tInnerView.clipsToBounds = YES;
@@ -136,7 +136,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     tInnerView.tag = aTag + TAG_INNER_VIEW_OFFSET;
     [tInnerView addSubview:tButton];
     
-    UIView* tBorderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 78.0, 78.0)];
+    UIView* tBorderView = [[CKRoundView alloc] initWithFrame:CGRectMake(0.0, 0.0, 78.0, 78.0)];
     tBorderView.backgroundColor = self.borderViewColor;
     tBorderView.opaque = YES;
     tBorderView.clipsToBounds = YES;
@@ -300,6 +300,22 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
         }
     }
     return tTag;
+}
+
+@end
+
+@implementation CKRoundView
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event
+{
+    // Pythagoras a^2 + b^2 = c^2
+    CGFloat tDiffX = 39.0 - point.x;
+    CGFloat tDiffY = 39.0 - point.y;
+    CGFloat tDeltaX = tDiffX * tDiffX;
+    CGFloat tDeltaY = tDiffY * tDiffY;
+    CGFloat tDistanceSquared = tDeltaX + tDeltaY;
+    CGFloat tRadiusSquared = 39.0 * 39.0;
+    return tDistanceSquared < tRadiusSquared;
 }
 
 @end

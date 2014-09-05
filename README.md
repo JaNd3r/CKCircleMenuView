@@ -25,6 +25,11 @@ There are several options that can be adjusted before presenting the menu.
 * Radius of the button alignment (default = 65)
 * Delay between button animations (default = 0.0 ms)
 
+#### To be implemented...
+
+* Configurable button size and border width.
+* Respect the super-view's bounding box, if its `clipToBounds` is set to `YES`.
+
 ## Usage
 
 tbd.

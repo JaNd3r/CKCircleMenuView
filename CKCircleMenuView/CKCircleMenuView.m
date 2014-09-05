@@ -152,6 +152,18 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
  */
 - (void)calculateButtonPositions
 {
+    UIView* tSuperView = [self superview];
+    CGFloat tMaxX = self.frame.size.width - 39.0;
+    CGFloat tMinX = 39.0;
+    CGFloat tMaxY = self.frame.size.height - 39.0;
+    CGFloat tMinY = 39.0;
+    if (tSuperView) {
+        tMaxX = tSuperView.frame.size.width - self.frame.origin.x - 78.0;
+        tMinX = -self.frame.origin.x;
+        tMaxY = tSuperView.frame.size.height - self.frame.origin.y - 78.0;
+        tMinY = -self.frame.origin.y;
+    }
+
     int tButtonCount = (int)self.buttons.count;
     CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     CGFloat tRadius = self.radius;
@@ -168,6 +180,12 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
         CGSize tSize = tView.frame.size;
         CGFloat tX = tOrigin.x - (tRadius * cosf(tCurrentWinkel / 180.0 * M_PI)) - (tSize.width / 2);
         CGFloat tY = tOrigin.y - (tRadius * sinf(tCurrentWinkel / 180.0 * M_PI)) - (tSize.width / 2);
+        
+        if (tX > tMaxX) tX = tMaxX;
+        if (tX < tMinX) tX = tMinX;
+        if (tY > tMaxY) tY = tMaxY;
+        if (tY < tMinY) tY = tMinY;
+        
         CGRect tRect = CGRectMake(tX, tY, tSize.width, tSize.height);
         tView.frame = tRect;
         tCounter++;
@@ -179,7 +197,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
     self.recognizer = aRecognizer;
     // use target action to get notified upon gesture changes
     [aRecognizer addTarget:self action:@selector(gestureChanged:)];
-    
+ 
     CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     [self calculateButtonPositions];
     for (UIView* tButtonView in self.buttons) {

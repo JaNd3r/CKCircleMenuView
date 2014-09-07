@@ -21,6 +21,8 @@
 @property (nonatomic) CGFloat animationDelay;
 @property (nonatomic) CGFloat startingAngle;
 
+@property (nonatomic, weak) UIView* clippingView;
+
 @end
 
 // each button is made up of three views (button image, background and border)
@@ -152,15 +154,18 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
  */
 - (void)calculateButtonPositions
 {
-    UIView* tSuperView = [self superview];
+    if (!self.clippingView) {
+        self.clippingView = [self clippingViewOfChild:self];
+    }
+    // climb view hierarchy up, until first view with clipToBounds = YES
     CGFloat tMaxX = self.frame.size.width - 39.0;
     CGFloat tMinX = 39.0;
     CGFloat tMaxY = self.frame.size.height - 39.0;
     CGFloat tMinY = 39.0;
-    if (tSuperView) {
-        tMaxX = tSuperView.frame.size.width - self.frame.origin.x - 78.0;
+    if (self.clippingView) {
+        tMaxX = self.clippingView.frame.size.width - self.frame.origin.x - 78.0;
         tMinX = -self.frame.origin.x;
-        tMaxY = tSuperView.frame.size.height - self.frame.origin.y - 78.0;
+        tMaxY = self.clippingView.frame.size.height - self.frame.origin.y - 78.0;
         tMinY = -self.frame.origin.y;
     }
 
@@ -189,6 +194,25 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
         CGRect tRect = CGRectMake(tX, tY, tSize.width, tSize.height);
         tView.frame = tRect;
         tCounter++;
+    }
+}
+
+/**
+ * Climbs up the view hierarchy to find the first which has clipToBounds = YES.
+ * Returns the topmost view if no view has clipsToBound set to YES.
+ * @return UIView with clipToBounds = YES
+ */
+- (UIView*)clippingViewOfChild:(UIView*)aView
+{
+    UIView* tView = [aView superview];
+    if (tView) {
+        if (tView.clipsToBounds) {
+            return tView;
+        } else {
+            return [self clippingViewOfChild:tView];
+        }
+    } else {
+        return aView;
     }
 }
 

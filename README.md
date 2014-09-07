@@ -28,7 +28,6 @@ There are several options that can be adjusted before presenting the menu.
 #### To be implemented...
 
 * Configurable button size and border width.
-* Respect the super-view's bounding box, if its `clipToBounds` is set to `YES`.
 
 ## Usage
 

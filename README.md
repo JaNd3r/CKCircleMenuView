@@ -10,6 +10,10 @@ The idea is to keep your UI simple and clean and show buttons to the user when t
 
 ![](CircleMenuDemo1.gif) &nbsp; ![](CircleMenuDemo2.gif)
 
+The following animation shows a depth effect (sorry for the poor gif quality, you have to see this in the demo app!). You can configure a mellow drop shadow to be rendered, which will transform slightly when the button is activated. At the same time, the button will be scaled a bit down, resulting in a super-subtle 3D effect.
+
+![](CircleMenuDemoDepth.gif)
+
 The CKCircleMenuView is designed for easy integration and usage. Spawning the menu and reacting on button activations is as easy as to use an UIAlertView.
 
 ## Features
@@ -24,6 +28,7 @@ There are several options that can be adjusted before presenting the menu.
 * Direction of the angle's center (default = `CircleMenuDirectionUp`)
 * Radius of the button alignment (default = 65)
 * Delay between button animations (default = 0.0 ms)
+* Depth effect by using drop shadow and scaling (default = NO)
 
 #### To be implemented...
 

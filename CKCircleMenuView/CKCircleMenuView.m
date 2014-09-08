@@ -157,18 +157,19 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 - (void)calculateButtonPositions
 {
     if (!self.clippingView) {
+        // climb view hierarchy up, until first view with clipToBounds = YES
         self.clippingView = [self clippingViewOfChild:self];
     }
-    // climb view hierarchy up, until first view with clipToBounds = YES
     CGFloat tMaxX = self.frame.size.width - 39.0;
     CGFloat tMinX = 39.0;
     CGFloat tMaxY = self.frame.size.height - 39.0;
     CGFloat tMinY = 39.0;
     if (self.clippingView) {
-        tMaxX = self.clippingView.frame.size.width - self.frame.origin.x - 78.0;
-        tMinX = -self.frame.origin.x;
-        tMaxY = self.clippingView.frame.size.height - self.frame.origin.y - 78.0;
-        tMinY = -self.frame.origin.y;
+        CGRect tClippingFrame = [self.clippingView convertRect:self.clippingView.bounds toView:self];
+        tMaxX = tClippingFrame.size.width + tClippingFrame.origin.x - 78.0;
+        tMinX = tClippingFrame.origin.x;
+        tMaxY = tClippingFrame.size.height + tClippingFrame.origin.y - 78.0;
+        tMinY = tClippingFrame.origin.y;
     }
 
     int tButtonCount = (int)self.buttons.count;

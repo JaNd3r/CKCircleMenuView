@@ -14,12 +14,14 @@
 @property (weak, nonatomic) IBOutlet UISlider *buttonCountSlider;
 @property (weak, nonatomic) IBOutlet UISlider *angleSlider;
 @property (weak, nonatomic) IBOutlet UISwitch *delaySwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *shadowSwitch;
 @property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *directionSegmentedControl;
 
 @property (nonatomic) NSArray* imageArray;
 @property (nonatomic) CGFloat angle;
 @property (nonatomic) CGFloat delay;
+@property (nonatomic) int shadow;
 @property (nonatomic) CGFloat radius;
 @property (nonatomic) int direction;
 
@@ -35,6 +37,7 @@
     self.imageArray = @[[UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"]];
     self.direction = CircleMenuDirectionUp;
     self.delay = 0.0;
+    self.shadow = 0;
     self.radius = 65.0;
     self.angle = 180.0;
 }
@@ -68,6 +71,15 @@
     }
 }
 
+- (IBAction)shadowChanged:(UISwitch *)sender
+{
+    if (sender.isOn) {
+        self.shadow = 1;
+    } else {
+        self.shadow = 0;
+    }
+}
+
 - (IBAction)radiusChanged:(UISlider *)sender
 {
     self.radius = sender.value;
@@ -96,6 +108,7 @@
         [tOptions setValue:[UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0] forKey:CIRCLE_MENU_BUTTON_BACKGROUND_NORMAL];
         [tOptions setValue:[UIColor colorWithRed:0.25 green:0.5 blue:0.75 alpha:1.0] forKey:CIRCLE_MENU_BUTTON_BACKGROUND_ACTIVE];
         [tOptions setValue:[UIColor whiteColor] forKey:CIRCLE_MENU_BUTTON_BORDER];
+        [tOptions setValue:[NSNumber numberWithInt:self.shadow] forKey:CIRCLE_MENU_DEPTH];
         
         CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
         [self.view addSubview:tMenu];

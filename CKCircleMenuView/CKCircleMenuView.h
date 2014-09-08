@@ -36,6 +36,7 @@ extern NSString* const CIRCLE_MENU_OPENING_DELAY;
 extern NSString* const CIRCLE_MENU_RADIUS;
 extern NSString* const CIRCLE_MENU_MAX_ANGLE;
 extern NSString* const CIRCLE_MENU_DIRECTION;
+extern NSString* const CIRCLE_MENU_DEPTH;
 
 typedef enum {
     CircleMenuDirectionUp = 1,

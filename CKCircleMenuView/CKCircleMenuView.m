@@ -20,17 +20,17 @@
 @property (nonatomic) CGFloat maxAngle;
 @property (nonatomic) CGFloat animationDelay;
 @property (nonatomic) CGFloat startingAngle;
+@property (nonatomic) BOOL depth;
 
 @property (nonatomic, weak) UIView* clippingView;
 
 @end
 
-// each button is made up of three views (button image, background and border)
+// each button is made up of two views (button image, and background view)
 // the buttons get tagged, starting at 1
-// components are identified by adding the corresponding offset to the button's tag
+// components are identified by adding the corresponding offset to the button's logical tag
 static int TAG_BUTTON_OFFSET = 100;
 static int TAG_INNER_VIEW_OFFSET = 1000;
-static int TAG_BORDER_OFFSET = 10000;
 
 // constants used for the configuration dictionary
 NSString* const CIRCLE_MENU_BUTTON_BACKGROUND_NORMAL = @"kCircleMenuNormal";
@@ -40,6 +40,7 @@ NSString* const CIRCLE_MENU_OPENING_DELAY = @"kCircleMenuDelay";
 NSString* const CIRCLE_MENU_RADIUS = @"kCircleMenuRadius";
 NSString* const CIRCLE_MENU_MAX_ANGLE = @"kCircleMenuMaxAngle";
 NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
+NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 
 @implementation CKCircleMenuView
 
@@ -69,6 +70,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
                     self.startingAngle = 270.0;
                     break;
             }
+            self.depth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_DEPTH] boolValue];
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -78,6 +80,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
             self.radius = 65.0;
             self.maxAngle = 180.0;
             self.startingAngle = 0.0;
+            self.depth = NO;
         }
     }
     return self;
@@ -126,27 +129,26 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
 - (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag
 {
     UIButton* tButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    tButton.frame = CGRectMake(21.0, 21.0, 32.0, 32.0);
+    tButton.frame = CGRectMake(23.0, 23.0, 32.0, 32.0);
     [tButton setImage:anImage forState:UIControlStateNormal];
     tButton.tag = aTag + TAG_BUTTON_OFFSET;
     
-    UIView* tInnerView = [[CKRoundView alloc] initWithFrame:CGRectMake(2.0, 2.0, 74.0, 74.0)];
+    UIView* tInnerView = [[CKRoundView alloc] initWithFrame:CGRectMake(0.0, 0.0, 78.0, 78.0)];
     tInnerView.backgroundColor = self.innerViewColor;
     tInnerView.opaque = YES;
-    tInnerView.clipsToBounds = YES;
-    tInnerView.layer.cornerRadius = 37.0;
+    tInnerView.clipsToBounds = NO;
+    tInnerView.layer.cornerRadius = 39.0;
+    tInnerView.layer.borderColor = [self.borderViewColor CGColor];
+    tInnerView.layer.borderWidth = 2.0;
+
+    if (self.depth) {
+        [self applyInactiveDepthToButtonView:tInnerView];
+    }
+
     tInnerView.tag = aTag + TAG_INNER_VIEW_OFFSET;
     [tInnerView addSubview:tButton];
     
-    UIView* tBorderView = [[CKRoundView alloc] initWithFrame:CGRectMake(0.0, 0.0, 78.0, 78.0)];
-    tBorderView.backgroundColor = self.borderViewColor;
-    tBorderView.opaque = YES;
-    tBorderView.clipsToBounds = YES;
-    tBorderView.layer.cornerRadius = 39.0;
-    tBorderView.tag = aTag + TAG_BORDER_OFFSET;
-    [tBorderView addSubview:tInnerView];
-    
-    return tBorderView;
+    return tInnerView;
 }
 
 /**
@@ -278,24 +280,49 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
         self.hoverTag = tTag;
         
         // display all (other) buttons in normal state
-        for (int i = 1; i <= self.buttons.count; i++) {
-            UIView* tView = [self viewWithTag:i + TAG_INNER_VIEW_OFFSET];
-            tView.backgroundColor = self.innerViewColor;
-        }
+        [self resetButtonState];
         
         // display this button in active color
         tTag = tTag + TAG_INNER_VIEW_OFFSET;
         UIView* tInnerView = [self viewWithTag:tTag];
         tInnerView.backgroundColor = self.innerViewActiveColor;
+        if (self.depth) {
+            [self applyActiveDepthToButtonView:tInnerView];
+        }
     } else {
         // the view "hit" is none of the buttons -> display all in normal state
-        for (int i = 1; i <= self.buttons.count; i++) {
-            UIView* tView = [self viewWithTag:i + TAG_INNER_VIEW_OFFSET];
-            tView.backgroundColor = self.innerViewColor;
-        }
-        
+        [self resetButtonState];        
         self.hoverTag = 0;
     }
+}
+
+- (void)resetButtonState
+{
+    for (int i = 1; i <= self.buttons.count; i++) {
+        UIView* tView = [self viewWithTag:i + TAG_INNER_VIEW_OFFSET];
+        tView.backgroundColor = self.innerViewColor;
+        if (self.depth) {
+            [self applyInactiveDepthToButtonView:tView];
+        }
+    }
+}
+
+- (void)applyInactiveDepthToButtonView:(UIView*)aView
+{
+    aView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    aView.layer.shadowOffset = CGSizeMake(4,2);
+    aView.layer.shadowRadius = 8;
+    aView.layer.shadowOpacity = 0.35;
+    aView.layer.affineTransform = CGAffineTransformMakeScale(1.0, 1.0);
+}
+
+- (void)applyActiveDepthToButtonView:(UIView*)aView
+{
+    aView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    aView.layer.shadowOffset = CGSizeMake(2,1);
+    aView.layer.shadowRadius = 5;
+    aView.layer.shadowOpacity = 0.42;
+    aView.layer.affineTransform = CGAffineTransformMakeScale(0.985, 0.985);
 }
 
 /**
@@ -331,9 +358,6 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
 {
     int tTag = (int)aView.tag;
     if (tTag > 0) {
-        if (tTag >= TAG_BORDER_OFFSET) {
-            tTag = tTag - TAG_BORDER_OFFSET;
-        }
         if (tTag >= TAG_INNER_VIEW_OFFSET) {
             tTag = tTag - TAG_INNER_VIEW_OFFSET;
         }

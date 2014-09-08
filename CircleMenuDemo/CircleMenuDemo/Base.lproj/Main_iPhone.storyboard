@@ -88,13 +88,6 @@
                                     <action selector="angleChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="sSF-ZT-Pio"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Perform a long press gesture somewhere here..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="sRT-JS-Be7">
-                                <rect key="frame" x="20" y="148" width="280" height="94"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h1d-xv-OWW">
                                 <rect key="frame" x="251" y="443" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -102,17 +95,33 @@
                                     <action selector="shadowChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="xjM-yw-41q"/>
                                 </connections>
                             </switch>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qj-lw-8OP" userLabel="Clipping View">
+                                <rect key="frame" x="10" y="20" width="300" height="339"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Perform a long press gesture somewhere here..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="sRT-JS-Be7">
+                                        <rect key="frame" x="10" y="83" width="280" height="188"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="k2c-cX-Urz" appends="YES" id="v75-r9-45f"/>
+                                        </connections>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="k2c-cX-Urz" appends="YES" id="WRt-IL-Zgt"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="angleSlider" destination="5sd-gf-KWH" id="gpT-i1-VeV"/>
                         <outlet property="buttonCountSlider" destination="kOx-97-cOY" id="7o2-aH-Rbu"/>
                         <outlet property="delaySwitch" destination="zyb-8i-ihS" id="rpb-aD-ees"/>
+                        <outlet property="demoAreaLabel" destination="sRT-JS-Be7" id="oxe-1Q-nAK"/>
                         <outlet property="directionSegmentedControl" destination="Qir-oe-zHd" id="o0E-wJ-cuc"/>
                         <outlet property="radiusSlider" destination="18Y-8l-W2H" id="HqS-5U-eqL"/>
                         <outlet property="shadowSwitch" destination="h1d-xv-OWW" id="Vwr-Ic-ACb"/>

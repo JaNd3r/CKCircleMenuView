@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *shadowSwitch;
 @property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *directionSegmentedControl;
+@property (weak, nonatomic) IBOutlet UILabel *demoAreaLabel;
 
 @property (nonatomic) NSArray* imageArray;
 @property (nonatomic) CGFloat angle;
@@ -33,6 +34,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.demoAreaLabel.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
     
     self.imageArray = @[[UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"]];
     self.direction = CircleMenuDirectionUp;
@@ -98,7 +101,7 @@
 - (IBAction)longPressGestureRecognized:(UILongPressGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateBegan) {
-        CGPoint tPoint = [sender locationInView:self.view];
+        CGPoint tPoint = [sender locationInView:self.demoAreaLabel];
         
         NSMutableDictionary* tOptions = [NSMutableDictionary new];
         [tOptions setValue:[NSDecimalNumber numberWithFloat:self.delay] forKey:CIRCLE_MENU_OPENING_DELAY];
@@ -111,7 +114,7 @@
         [tOptions setValue:[NSNumber numberWithInt:self.shadow] forKey:CIRCLE_MENU_DEPTH];
         
         CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
-        [self.view addSubview:tMenu];
+        [self.demoAreaLabel addSubview:tMenu];
         [tMenu openMenuWithRecognizer:sender];
         tMenu.delegate = self;
     }

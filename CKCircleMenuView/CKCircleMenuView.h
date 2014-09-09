@@ -37,6 +37,8 @@ extern NSString* const CIRCLE_MENU_RADIUS;
 extern NSString* const CIRCLE_MENU_MAX_ANGLE;
 extern NSString* const CIRCLE_MENU_DIRECTION;
 extern NSString* const CIRCLE_MENU_DEPTH;
+extern NSString* const CIRCLE_MENU_BUTTON_RADIUS;
+extern NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH;
 
 typedef enum {
     CircleMenuDirectionUp = 1,
@@ -78,7 +80,7 @@ typedef enum {
  *                    select a button and to close the menu, once the 
  *                    gesture ends.
  */
-- (void)openMenuWithRecognizer:(UILongPressGestureRecognizer*)aRecognizer;
+- (void)openMenuWithRecognizer:(UIGestureRecognizer*)aRecognizer;
 
 /**
  * Offers the possibility to close the menu externally.

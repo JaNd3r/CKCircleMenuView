@@ -10,7 +10,7 @@
 @interface CKCircleMenuView()
 
 @property (nonatomic) NSMutableArray* buttons;
-@property (weak, nonatomic) UILongPressGestureRecognizer* recognizer;
+@property (weak, nonatomic) UIGestureRecognizer* recognizer;
 @property (nonatomic) int hoverTag;
 
 @property (nonatomic) UIColor* innerViewColor;
@@ -21,6 +21,8 @@
 @property (nonatomic) CGFloat animationDelay;
 @property (nonatomic) CGFloat startingAngle;
 @property (nonatomic) BOOL depth;
+@property (nonatomic) CGFloat buttonRadius;
+@property (nonatomic) CGFloat buttonBorderWidth;
 
 @property (nonatomic, weak) UIView* clippingView;
 
@@ -41,6 +43,8 @@ NSString* const CIRCLE_MENU_RADIUS = @"kCircleMenuRadius";
 NSString* const CIRCLE_MENU_MAX_ANGLE = @"kCircleMenuMaxAngle";
 NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
 NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
+NSString* const CIRCLE_MENU_BUTTON_RADIUS = @"kCircleMenuButtonRadius";
+NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth";
 
 @implementation CKCircleMenuView
 
@@ -71,6 +75,8 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
                     break;
             }
             self.depth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_DEPTH] boolValue];
+            self.buttonRadius = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_RADIUS] doubleValue];
+            self.buttonBorderWidth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH] doubleValue];
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -81,6 +87,8 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
             self.maxAngle = 180.0;
             self.startingAngle = 0.0;
             self.depth = NO;
+            self.buttonRadius = 39.0;
+            self.buttonBorderWidth = 2.0;
         }
     }
     return self;
@@ -90,7 +98,7 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 {
     self = [self initWithOptions:anOptionsDictionary];
     if (self) {
-        self.frame = CGRectMake(aPoint.x - self.radius - 39.0, aPoint.y - self.radius - 39.0, self.radius * 2 + 78.0, self.radius * 2 + 78.0);
+        self.frame = CGRectMake(aPoint.x - self.radius - self.buttonRadius, aPoint.y - self.radius - self.buttonRadius, self.radius * 2 + self.buttonRadius * 2, self.radius * 2 + self.buttonRadius * 2);
         int tTag = 1;
         for (UIImage* img in anImageArray) {
             UIView* tView = [self createButtonViewWithImage:img andTag:tTag];
@@ -105,7 +113,7 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 {
     self = [self initWithOptions:anOptionsDictionary];
     if (self) {
-        self.frame = CGRectMake(aPoint.x - self.radius - 39.0, aPoint.y - self.radius - 39.0, self.radius * 2 + 78.0, self.radius * 2 + 78.0);
+        self.frame = CGRectMake(aPoint.x - self.radius - self.buttonRadius, aPoint.y - self.radius - self.buttonRadius, self.radius * 2 + self.buttonRadius * 2, self.radius * 2 + self.buttonRadius * 2);
         int tTag = 1;
         va_list args;
         va_start(args, anImage);
@@ -129,17 +137,19 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 - (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag
 {
     UIButton* tButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    tButton.frame = CGRectMake(23.0, 23.0, 32.0, 32.0);
+    CGFloat tButtonViewX = self.buttonRadius - anImage.size.width / 2;
+    CGFloat tButtonViewY = self.buttonRadius - anImage.size.height / 2;
+    tButton.frame = CGRectMake(tButtonViewX, tButtonViewY, anImage.size.width, anImage.size.height);
     [tButton setImage:anImage forState:UIControlStateNormal];
     tButton.tag = aTag + TAG_BUTTON_OFFSET;
     
-    UIView* tInnerView = [[CKRoundView alloc] initWithFrame:CGRectMake(0.0, 0.0, 78.0, 78.0)];
+    UIView* tInnerView = [[CKRoundView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.buttonRadius * 2, self.buttonRadius * 2)];
     tInnerView.backgroundColor = self.innerViewColor;
     tInnerView.opaque = YES;
     tInnerView.clipsToBounds = NO;
-    tInnerView.layer.cornerRadius = 39.0;
+    tInnerView.layer.cornerRadius = self.buttonRadius;
     tInnerView.layer.borderColor = [self.borderViewColor CGColor];
-    tInnerView.layer.borderWidth = 2.0;
+    tInnerView.layer.borderWidth = self.buttonBorderWidth;
 
     if (self.depth) {
         [self applyInactiveDepthToButtonView:tInnerView];
@@ -160,15 +170,15 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
         // climb view hierarchy up, until first view with clipToBounds = YES
         self.clippingView = [self clippingViewOfChild:self];
     }
-    CGFloat tMaxX = self.frame.size.width - 39.0;
-    CGFloat tMinX = 39.0;
-    CGFloat tMaxY = self.frame.size.height - 39.0;
-    CGFloat tMinY = 39.0;
+    CGFloat tMaxX = self.frame.size.width - self.buttonRadius;
+    CGFloat tMinX = self.buttonRadius;
+    CGFloat tMaxY = self.frame.size.height - self.buttonRadius;
+    CGFloat tMinY = self.buttonRadius;
     if (self.clippingView) {
         CGRect tClippingFrame = [self.clippingView convertRect:self.clippingView.bounds toView:self];
-        tMaxX = tClippingFrame.size.width + tClippingFrame.origin.x - 78.0;
+        tMaxX = tClippingFrame.size.width + tClippingFrame.origin.x - self.buttonRadius * 2;
         tMinX = tClippingFrame.origin.x;
-        tMaxY = tClippingFrame.size.height + tClippingFrame.origin.y - 78.0;
+        tMaxY = tClippingFrame.size.height + tClippingFrame.origin.y - self.buttonRadius * 2;
         tMinY = tClippingFrame.origin.y;
     }
 
@@ -219,7 +229,7 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
     }
 }
 
-- (void)openMenuWithRecognizer:(UILongPressGestureRecognizer*)aRecognizer
+- (void)openMenuWithRecognizer:(UIGestureRecognizer*)aRecognizer
 {
     self.recognizer = aRecognizer;
     // use target action to get notified upon gesture changes
@@ -230,8 +240,8 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
     for (UIView* tButtonView in self.buttons) {
         [self addSubview:tButtonView];
         tButtonView.alpha = 0.0;
-        CGFloat tDiffX = tOrigin.x - tButtonView.frame.origin.x - 39.0;
-        CGFloat tDiffY = tOrigin.y - tButtonView.frame.origin.y - 39.0;
+        CGFloat tDiffX = tOrigin.x - tButtonView.frame.origin.x - self.buttonRadius;
+        CGFloat tDiffY = tOrigin.y - tButtonView.frame.origin.y - self.buttonRadius;
         tButtonView.transform = CGAffineTransformMakeTranslation(tDiffX, tDiffY);
     }
 
@@ -376,12 +386,11 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event
 {
     // Pythagoras a^2 + b^2 = c^2
-    CGFloat tDiffX = 39.0 - point.x;
-    CGFloat tDiffY = 39.0 - point.y;
-    CGFloat tDeltaX = tDiffX * tDiffX;
-    CGFloat tDeltaY = tDiffY * tDiffY;
-    CGFloat tDistanceSquared = tDeltaX + tDeltaY;
-    CGFloat tRadiusSquared = 39.0 * 39.0;
+    CGFloat tRadius = self.bounds.size.width / 2;
+    CGFloat tDiffX = tRadius - point.x;
+    CGFloat tDiffY = tRadius - point.y;
+    CGFloat tDistanceSquared = tDiffX * tDiffX + tDiffY * tDiffY;
+    CGFloat tRadiusSquared = tRadius * tRadius;
     return tDistanceSquared < tRadiusSquared;
 }
 

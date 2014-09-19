@@ -27,18 +27,16 @@ There are several options that can be adjusted before presenting the menu.
 * Angle to be used for button placement (default = 180 degrees)
 * Direction of the angle's center (default = `CircleMenuDirectionUp`)
 * Radius of the button alignment (default = 65)
+* Button's radius (half the width, default = 39)
+* Button's border width (default = 2)
 * Delay between button animations (default = 0.0 ms)
 * Depth effect by using drop shadow and scaling (default = NO)
-
-#### To be implemented...
-
-* Configurable button size and border width.
 
 ## Usage
 
 tbd.
 
-For now, please take a look at the demo app to see how the CKCircleMenuView is used.
+For now, please take a look at the demo app to see how the `CKCircleMenuView` is used.
 
 ## Author
 

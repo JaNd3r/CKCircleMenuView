@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CKCircleMenuView"
-  s.version      = "0.1.4"
+  s.version      = "0.1.5"
   s.summary      = "An easy-to-integrate popup menu of round buttons placed on a circle."
 
   s.description  = <<-DESC
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.requires_arc = true
 
-  s.source       = { :git => "https://github.com/JaNd3r/CKCircleMenuView.git", :tag => "0.1.4" }
+  s.source       = { :git => "https://github.com/JaNd3r/CKCircleMenuView.git", :tag => "0.1.5" }
 
   s.source_files  = "CKCircleMenuView/*.{h,m}"
 

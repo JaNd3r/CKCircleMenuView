@@ -81,7 +81,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="180" minValue="0.0" maxValue="359" translatesAutoresizingMaskIntoConstraints="NO" id="5sd-gf-KWH">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="180" minValue="0.0" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="5sd-gf-KWH">
                                 <rect key="frame" x="101" y="405" width="201" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>

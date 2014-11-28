@@ -37,7 +37,7 @@
     
     self.demoAreaLabel.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
     
-    self.imageArray = @[[UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"]];
+    self.imageArray = @[[UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"], [UIImage imageNamed:@"Sample Icon"]];
     self.direction = CircleMenuDirectionUp;
     self.delay = 0.0;
     self.shadow = 0;

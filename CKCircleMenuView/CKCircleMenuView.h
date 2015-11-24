@@ -39,6 +39,7 @@ extern NSString* const CIRCLE_MENU_DIRECTION;
 extern NSString* const CIRCLE_MENU_DEPTH;
 extern NSString* const CIRCLE_MENU_BUTTON_RADIUS;
 extern NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH;
+extern NSString* const CIRCLE_MENU_TAP_MODE;
 
 typedef enum {
     CircleMenuDirectionUp = 1,
@@ -81,6 +82,13 @@ typedef enum {
  *                    gesture ends.
  */
 - (void)openMenuWithRecognizer:(UIGestureRecognizer*)aRecognizer;
+
+/**
+ * Opens the menu with the buttons and settings specified in the
+ * initializer. Use this method if the menu is not triggered by
+ * a gesture recognizer but via tap e.g.
+ */
+- (void)openMenu;
 
 /**
  * Offers the possibility to close the menu externally.

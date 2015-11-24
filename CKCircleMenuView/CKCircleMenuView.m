@@ -23,6 +23,7 @@
 @property (nonatomic) BOOL depth;
 @property (nonatomic) CGFloat buttonRadius;
 @property (nonatomic) CGFloat buttonBorderWidth;
+@property (nonatomic) BOOL tapMode;
 
 @property (nonatomic, weak) UIView* clippingView;
 
@@ -45,6 +46,7 @@ NSString* const CIRCLE_MENU_DIRECTION = @"kCircleMenuDirection";
 NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 NSString* const CIRCLE_MENU_BUTTON_RADIUS = @"kCircleMenuButtonRadius";
 NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth";
+NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
 
 @implementation CKCircleMenuView
 
@@ -77,6 +79,7 @@ NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth
             self.depth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_DEPTH] boolValue];
             self.buttonRadius = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_RADIUS] doubleValue];
             self.buttonBorderWidth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH] doubleValue];
+            self.tapMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_TAP_MODE] boolValue];
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -89,6 +92,7 @@ NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth
             self.depth = NO;
             self.buttonRadius = 39.0;
             self.buttonBorderWidth = 2.0;
+            self.tapMode = NO;
         }
     }
     return self;
@@ -157,6 +161,12 @@ NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth
 
     tInnerView.tag = aTag + TAG_INNER_VIEW_OFFSET;
     [tInnerView addSubview:tButton];
+    
+    if (self.tapMode) {
+        [tButton addTarget:self action:@selector(circleButtonTapped:) forControlEvents:UIControlEventTouchDown];
+        UITapGestureRecognizer* temporaryRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self addGestureRecognizer:temporaryRecognizer];
+    }
     
     return tInnerView;
 }
@@ -236,9 +246,15 @@ NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth
 - (void)openMenuWithRecognizer:(UIGestureRecognizer*)aRecognizer
 {
     self.recognizer = aRecognizer;
+    
     // use target action to get notified upon gesture changes
-    [aRecognizer addTarget:self action:@selector(gestureChanged:)];
- 
+    [self.recognizer addTarget:self action:@selector(gestureChanged:)];
+    
+    [self openMenu];
+}
+
+- (void)openMenu
+{
     CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     [self calculateButtonPositions];
     for (UIView* tButtonView in self.buttons) {
@@ -266,7 +282,10 @@ NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth
  */
 - (void)closeMenu
 {
-    [self.recognizer removeTarget:self action:@selector(gestureChanged:)];
+    if (!self.tapMode) {
+        [self.recognizer removeTarget:self action:@selector(gestureChanged:)];
+    }
+    
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         for (UIView* tButtonView in self.buttons) {
             if (self.hoverTag > 0 && self.hoverTag == [self bareTagOfView:tButtonView]) {
@@ -361,6 +380,24 @@ NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth
         }
         [self closeMenu];
     }
+}
+
+- (void)handleTap:(UITapGestureRecognizer*)sender
+{
+    [self closeMenu];
+}
+
+- (void)circleButtonTapped:(UIButton*)sender
+{
+    int tTag = [self bareTagOfView:sender];
+    if (tTag > 0) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(circleMenuActivatedButtonWithIndex:)]) {
+            [self.delegate circleMenuActivatedButtonWithIndex:tTag-1];
+        }
+        // set as hover tag for activation animation
+        self.hoverTag = tTag;
+    }
+    [self closeMenu];
 }
 
 /**

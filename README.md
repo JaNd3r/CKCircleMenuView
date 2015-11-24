@@ -14,7 +14,11 @@ The following animation shows a depth effect (sorry for the poor gif quality, yo
 
 ![](CircleMenuDemoDepth.gif)
 
-The CKCircleMenuView is designed for easy integration and usage. Spawning the menu and reacting on button activations is as easy as to use an UIAlertView.
+If you prefer not to spawn the menu out of nowehere (your users have to know where to long press in order to see the menu) but want to offer a menu button, you can use the `CKCircleMenuView` in _tap mode_. Once opened, the menu stays open until the user selects an option or closes the menu by tapping somewhere else.
+
+![circlemenutapmode](https://cloud.githubusercontent.com/assets/7301252/11380734/32504124-92f8-11e5-97dc-6959e506cfe8.gif)
+
+The CKCircleMenuView is designed for easy integration and usage. Spawning the menu and reacting on button activations is as easy as to use an ~~UIAlertView~~ (deprecated) UIAlertController.
 
 ## Features
 
@@ -31,12 +35,15 @@ There are several options that can be adjusted before presenting the menu.
 * Button's border width (default = 2)
 * Delay between button animations (default = 0.0 ms)
 * Depth effect by using drop shadow and scaling (default = NO)
+* Tap mode (default = NO)
 
 ## Usage
 
-tbd.
+### CocoaPods
 
-For now, please take a look at the demo app to see how the `CKCircleMenuView` is used.
+Add `pod 'CKCircleMenuView'` to your Podfile and you are ready to go.
+
+For now, please take a look at the demo app included in this repo to see how the `CKCircleMenuView` is used.
 
 ## Author
 

@@ -275,6 +275,10 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
         
         }];
     }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(circleMenuOpened)]) {
+        [self.delegate circleMenuOpened];
+    }
 }
 
 /**

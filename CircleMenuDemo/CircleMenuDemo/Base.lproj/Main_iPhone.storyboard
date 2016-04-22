@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,36 +18,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="65" minValue="40" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="18Y-8l-W2H">
-                                <rect key="frame" x="101" y="482" width="201" height="31"/>
-                                <animations/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="65" minValue="40" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="18Y-8l-W2H">
+                                <rect key="frame" x="102" y="482" width="204" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="oS3-lC-L2h"/>
+                                    <constraint firstAttribute="height" constant="30" id="z9y-qZ-7hm"/>
+                                </constraints>
                                 <connections>
                                     <action selector="radiusChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="EPG-YH-OEs"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Radius" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpr-uj-iWY">
-                                <rect key="frame" x="20" y="486" width="75" height="21"/>
-                                <animations/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpr-uj-iWY">
+                                <rect key="frame" x="16" y="486" width="80" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="1" maxValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="kOx-97-cOY">
-                                <rect key="frame" x="101" y="367" width="201" height="31"/>
-                                <animations/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="1" maxValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="kOx-97-cOY">
+                                <rect key="frame" x="102" y="367" width="204" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="dVO-Fq-8co"/>
+                                    <constraint firstAttribute="width" constant="200" id="eT9-rl-VDn"/>
+                                </constraints>
                                 <connections>
                                     <action selector="buttonCountChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="1vL-N9-Hc1"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Buttons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9o-Sd-R2h">
-                                <rect key="frame" x="20" y="371" width="75" height="21"/>
-                                <animations/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buttons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9o-Sd-R2h">
+                                <rect key="frame" x="16" y="371" width="80" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qir-oe-zHd">
-                                <rect key="frame" x="20" y="520" width="280" height="29"/>
-                                <animations/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qir-oe-zHd">
+                                <rect key="frame" x="16" y="520" width="288" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="uTv-Kn-DUs"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Up"/>
                                     <segment title="Down"/>
@@ -57,52 +64,56 @@
                                     <action selector="directionChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="V2a-ID-3EU"/>
                                 </connections>
                             </segmentedControl>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zyb-8i-ihS">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zyb-8i-ihS">
                                 <rect key="frame" x="103" y="443" width="51" height="31"/>
-                                <animations/>
                                 <connections>
                                     <action selector="delayChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="fQo-99-cEn"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Delay" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tB-Xq-Dej">
-                                <rect key="frame" x="20" y="448" width="75" height="21"/>
-                                <animations/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delay" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tB-Xq-Dej">
+                                <rect key="frame" x="16" y="448" width="79" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Depth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3i-sW-yA2">
-                                <rect key="frame" x="168" y="448" width="75" height="22"/>
-                                <animations/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3i-sW-yA2">
+                                <rect key="frame" x="172" y="448" width="75" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="7Dq-dg-nkP"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Angle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fh-hL-ByV">
-                                <rect key="frame" x="20" y="409" width="75" height="21"/>
-                                <animations/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Angle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fh-hL-ByV">
+                                <rect key="frame" x="16" y="409" width="80" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="180" minValue="0.0" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="5sd-gf-KWH">
-                                <rect key="frame" x="101" y="405" width="201" height="31"/>
-                                <animations/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="180" minValue="0.0" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="5sd-gf-KWH">
+                                <rect key="frame" x="102" y="405" width="204" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="HpI-55-pSV"/>
+                                    <constraint firstAttribute="width" constant="200" id="Pe4-jE-Cb0"/>
+                                </constraints>
                                 <connections>
                                     <action selector="angleChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="sSF-ZT-Pio"/>
                                 </connections>
                             </slider>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h1d-xv-OWW">
-                                <rect key="frame" x="251" y="443" width="51" height="31"/>
-                                <animations/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h1d-xv-OWW">
+                                <rect key="frame" x="255" y="443" width="51" height="31"/>
                                 <connections>
                                     <action selector="shadowChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="xjM-yw-41q"/>
                                 </connections>
                             </switch>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qj-lw-8OP" userLabel="Clipping View">
-                                <rect key="frame" x="10" y="20" width="300" height="339"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qj-lw-8OP" userLabel="Clipping View">
+                                <rect key="frame" x="0.0" y="20" width="320" height="339"/>
                                 <subviews>
-                                    <label contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Perform a long press gesture somewhere here..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="sRT-JS-Be7">
-                                        <rect key="frame" x="10" y="83" width="280" height="188"/>
-                                        <animations/>
+                                    <label contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Perform a long press gesture somewhere here..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="sRT-JS-Be7">
+                                        <rect key="frame" x="20" y="80" width="280" height="180"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="2NU-8F-lrS"/>
+                                            <constraint firstAttribute="height" constant="180" id="HjZ-6K-GxN"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -110,11 +121,15 @@
                                             <outletCollection property="gestureRecognizers" destination="k2c-cX-Urz" appends="YES" id="v75-r9-45f"/>
                                         </connections>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eo6-su-vk9">
-                                        <rect key="frame" x="122" y="241" width="56" height="30"/>
-                                        <animations/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eo6-su-vk9">
+                                        <rect key="frame" x="128" y="247" width="64" height="32"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="ENY-Xn-rfh"/>
+                                            <constraint firstAttribute="width" constant="64" id="bDO-Eo-rWg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="Open"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -126,13 +141,50 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="sRT-JS-Be7" firstAttribute="centerX" secondItem="9Qj-lw-8OP" secondAttribute="centerX" id="KXP-FP-Qgl"/>
+                                    <constraint firstItem="eo6-su-vk9" firstAttribute="centerX" secondItem="9Qj-lw-8OP" secondAttribute="centerX" id="auk-Qf-hNy"/>
+                                    <constraint firstAttribute="bottom" secondItem="eo6-su-vk9" secondAttribute="bottom" constant="60" id="bXq-ye-1Ia"/>
+                                    <constraint firstItem="sRT-JS-Be7" firstAttribute="centerY" secondItem="9Qj-lw-8OP" secondAttribute="centerY" id="cRs-re-abP"/>
+                                </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="18Y-8l-W2H" firstAttribute="top" secondItem="h1d-xv-OWW" secondAttribute="bottom" constant="8" id="1cn-He-lZm"/>
+                            <constraint firstItem="kOx-97-cOY" firstAttribute="centerY" secondItem="C9o-Sd-R2h" secondAttribute="centerY" id="2CM-iG-iyE"/>
+                            <constraint firstItem="zyb-8i-ihS" firstAttribute="centerY" secondItem="1tB-Xq-Dej" secondAttribute="centerY" id="3LB-Jl-Pd5"/>
+                            <constraint firstItem="h1d-xv-OWW" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="3Tx-sF-Lxa"/>
+                            <constraint firstAttribute="trailing" secondItem="9Qj-lw-8OP" secondAttribute="trailing" id="7OU-sn-DLL"/>
+                            <constraint firstItem="Qir-oe-zHd" firstAttribute="top" secondItem="18Y-8l-W2H" secondAttribute="bottom" constant="8" id="9ca-cO-c6d"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Qir-oe-zHd" secondAttribute="bottom" constant="20" id="AWz-7K-IHX"/>
+                            <constraint firstItem="hpr-uj-iWY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="AZA-Ke-SeR"/>
+                            <constraint firstItem="5sd-gf-KWH" firstAttribute="top" secondItem="kOx-97-cOY" secondAttribute="bottom" constant="8" id="Fku-Ub-z2i"/>
+                            <constraint firstItem="Qir-oe-zHd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="G6D-9A-w66"/>
+                            <constraint firstItem="h1d-xv-OWW" firstAttribute="top" secondItem="5sd-gf-KWH" secondAttribute="bottom" constant="8" id="GPo-yV-LB0"/>
+                            <constraint firstItem="kOx-97-cOY" firstAttribute="leading" secondItem="C9o-Sd-R2h" secondAttribute="trailing" constant="8" id="Huq-0F-nMw"/>
+                            <constraint firstItem="zyb-8i-ihS" firstAttribute="leading" secondItem="1tB-Xq-Dej" secondAttribute="trailing" constant="8" id="KYm-Kb-6tj"/>
+                            <constraint firstItem="5sd-gf-KWH" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="LSa-bx-AfE"/>
+                            <constraint firstItem="r3i-sW-yA2" firstAttribute="leading" secondItem="zyb-8i-ihS" secondAttribute="trailing" constant="20" id="OGL-lb-r1M"/>
+                            <constraint firstItem="9Qj-lw-8OP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Ovr-Tg-H8b"/>
+                            <constraint firstItem="1tB-Xq-Dej" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Qkz-NM-4Xa"/>
+                            <constraint firstItem="5sd-gf-KWH" firstAttribute="centerY" secondItem="4fh-hL-ByV" secondAttribute="centerY" id="TnK-Zi-5fJ"/>
+                            <constraint firstItem="9Qj-lw-8OP" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="U2b-gP-DFR"/>
+                            <constraint firstItem="5sd-gf-KWH" firstAttribute="leading" secondItem="4fh-hL-ByV" secondAttribute="trailing" constant="8" id="aCb-cD-Xec"/>
+                            <constraint firstItem="h1d-xv-OWW" firstAttribute="leading" secondItem="r3i-sW-yA2" secondAttribute="trailing" constant="8" id="bKm-Hu-naF"/>
+                            <constraint firstItem="18Y-8l-W2H" firstAttribute="centerY" secondItem="hpr-uj-iWY" secondAttribute="centerY" id="ckq-aA-lgU"/>
+                            <constraint firstItem="kOx-97-cOY" firstAttribute="top" secondItem="9Qj-lw-8OP" secondAttribute="bottom" constant="8" id="csG-X8-BlF"/>
+                            <constraint firstItem="h1d-xv-OWW" firstAttribute="centerY" secondItem="r3i-sW-yA2" secondAttribute="centerY" id="hIo-L9-4wV"/>
+                            <constraint firstItem="C9o-Sd-R2h" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="hys-sr-vmh"/>
+                            <constraint firstItem="18Y-8l-W2H" firstAttribute="leading" secondItem="hpr-uj-iWY" secondAttribute="trailing" constant="8" id="kqJ-D5-rKs"/>
+                            <constraint firstItem="18Y-8l-W2H" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="m4L-hg-GoO"/>
+                            <constraint firstItem="Qir-oe-zHd" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="nJW-Rk-SIu"/>
+                            <constraint firstItem="4fh-hL-ByV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="p1M-Wg-1jd"/>
+                            <constraint firstItem="kOx-97-cOY" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="qBD-y7-UQa"/>
+                            <constraint firstItem="18Y-8l-W2H" firstAttribute="top" secondItem="zyb-8i-ihS" secondAttribute="bottom" constant="8" id="xPZ-zT-JCl"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="angleSlider" destination="5sd-gf-KWH" id="gpT-i1-VeV"/>

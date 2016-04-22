@@ -118,14 +118,17 @@
         [tOptions setValue:[NSDecimalNumber decimalNumberWithString:@"40.0"] forKey:CIRCLE_MENU_BUTTON_RADIUS];
         [tOptions setValue:[NSDecimalNumber decimalNumberWithString:@"2.5"] forKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH];
         [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_TAP_MODE];
+        [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_LINE_MODE];
         
         CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
+        tMenu.delegate = self;
         [self.demoAreaLabel addSubview:tMenu];
         [tMenu openMenuWithRecognizer:sender];
-        tMenu.delegate = self;
     }
 }
-- (IBAction)demoTapButtonTouchUpInside:(UIButton *)sender {
+
+- (IBAction)demoTapButtonTouchUpInside:(UIButton *)sender
+{
     if (self.circleMenuView) {
         
         [self.circleMenuView closeMenu];
@@ -134,7 +137,8 @@
         
     } else {
         
-        CGPoint tPoint = CGPointMake(140, 180);
+        CGPoint tPoint = CGPointMake(CGRectGetMidX(sender.bounds), CGRectGetMidY(sender.bounds));
+        tPoint = [self.view convertPoint:tPoint fromView:sender];
 
         NSMutableDictionary* tOptions = [NSMutableDictionary new];
         [tOptions setValue:[NSDecimalNumber numberWithFloat:self.delay] forKey:CIRCLE_MENU_OPENING_DELAY];
@@ -148,22 +152,38 @@
         [tOptions setValue:[NSDecimalNumber decimalNumberWithString:@"40.0"] forKey:CIRCLE_MENU_BUTTON_RADIUS];
         [tOptions setValue:[NSDecimalNumber decimalNumberWithString:@"2.5"] forKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH];
         [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_TAP_MODE];
+        [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_LINE_MODE];
         
         CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
-        [self.demoAreaLabel addSubview:tMenu];
-        [tMenu openMenu];
         tMenu.delegate = self;
+        [self.view addSubview:tMenu];
+        [tMenu openMenu];
         self.circleMenuView = tMenu;
-        [self.demoTapButton setTitle:@"Close" forState:UIControlStateNormal];
     }
 }
 
 - (void)circleMenuActivatedButtonWithIndex:(int)anIndex
 {
-    UIAlertView* tAlert = [[UIAlertView alloc] initWithTitle:@"Circle Menu Action" message:[NSString stringWithFormat:@"Button pressed at index %i.", anIndex] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [tAlert show];
-    self.circleMenuView = nil;
+    UIAlertController* tController = [UIAlertController alertControllerWithTitle:@"Circle Menu Action" message:[NSString stringWithFormat:@"Button pressed at index %i.", anIndex] preferredStyle:UIAlertControllerStyleAlert];
+    [tController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:tController animated:YES completion:^{
+        self.circleMenuView = nil;
+        [self.demoTapButton setTitle:@"Open" forState:UIControlStateNormal];
+    }];
+}
+
+- (void)circleMenuClosed
+{
+    if (self.circleMenuView) {
+        [self.circleMenuView closeMenu];
+        self.circleMenuView = nil;
+    }
     [self.demoTapButton setTitle:@"Open" forState:UIControlStateNormal];
+}
+
+- (void)circleMenuOpened
+{
+    [self.demoTapButton setTitle:@"Close" forState:UIControlStateNormal];
 }
 
 @end

@@ -36,6 +36,7 @@ There are several options that can be adjusted before presenting the menu.
 * Delay between button animations (default = 0.0 ms)
 * Depth effect by using drop shadow and scaling (default = NO)
 * Tap mode (default = NO)
+* Line mode (default = NO)
 
 ## Usage
 
@@ -44,6 +45,20 @@ There are several options that can be adjusted before presenting the menu.
 Add `pod 'CKCircleMenuView'` to your Podfile and you are ready to go.
 
 For now, please take a look at the demo app included in this repo to see how the `CKCircleMenuView` is used.
+
+### Swift
+
+If you are using the `CKCircleMenuView` in a Swift project, add the following line to your Objective-C bridging header.
+
+```objc
+#import <CKCircleMenuView/CKCircleMenuView.h>
+```
+
+In the Swift class you want to use the `CKCircleMenuView` add the following import statement.
+
+```swift
+import CKCircleMenuView
+```
 
 ## Author
 

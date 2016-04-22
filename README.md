@@ -38,13 +38,11 @@ There are several options that can be adjusted before presenting the menu.
 * Tap mode (default = NO)
 * Line mode (default = NO)
 
-## Usage
+## Installation
 
 ### CocoaPods
 
-Add `pod 'CKCircleMenuView'` to your Podfile and you are ready to go.
-
-For now, please take a look at the demo app included in this repo to see how the `CKCircleMenuView` is used.
+Add `pod 'CKCircleMenuView'` to your `Podfile`, run `pod install` and you are ready to go.
 
 ### Swift
 
@@ -58,6 +56,71 @@ In the Swift class you want to use the `CKCircleMenuView` add the following impo
 
 ```swift
 import CKCircleMenuView
+```
+## Usage
+
+Please take a look at the demo app included in this repo to see a fully working example on how the `CKCircleMenuView` is used.
+
+Basically what you have to do is: In your Storyboard add a gesture recognizer for long presses on the view, that should spawn the `CKCircleMenuView` and connect it to an action method within your view controller. Alternatively - if you want to use the menu in tap mode - add a `UIButton` and connect its touch-up-inside event to an action method in your view controller. There are a few things that you need to implement.
+
+* Determine the point where the triggering event occured (center of the `UIButton`'s frame or location of the long press gesture in your view). This will be used as the origin (center) of the `CKCircleMenuView`.
+```swift
+let tPoint = CGPointMake(CGRectGetMidX(button.frame), CGRectGetMidY(button.frame))
+let tOrigin = self.view.convertPoint(tPoint, fromView: sender)
+```
+* Create an array of images which will be used to populate your menu with buttons (e.g. in `viewDidLoad`, if the menu's content isn't dynamic).
+```swift
+var circleMenuImageArray = Array<UIImage>()
+
+override func viewDidLoad() {
+  super.viewDidLoad()
+
+  // ...
+  self.circleMenuImageArray.append(UIImage(named: "InfoChartButton")!)
+  self.circleMenuImageArray.append(UIImage(named: "CircleChartButton")!)
+  self.circleMenuImageArray.append(UIImage(named: "BarChartButton")!)
+  self.circleMenuImageArray.append(UIImage(named: "RealtimeButton")!)
+  self.circleMenuImageArray.append(UIImage(named: "LineChartButton")!)
+}
+```
+* Create a dictionary containing the configuration parameters for the menu.
+```swift
+var tOptions = Dictionary<String, AnyObject>()
+tOptions[CIRCLE_MENU_OPENING_DELAY] = 0.1
+tOptions[CIRCLE_MENU_MAX_ANGLE] = 180.0
+tOptions[CIRCLE_MENU_RADIUS] = 105.0
+tOptions[CIRCLE_MENU_DIRECTION] = Int(CircleMenuDirectionUp.rawValue)
+tOptions[CIRCLE_MENU_BUTTON_BACKGROUND_NORMAL] = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+tOptions[CIRCLE_MENU_BUTTON_BACKGROUND_ACTIVE] = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.8)
+tOptions[CIRCLE_MENU_BUTTON_BORDER] = UIColor.whiteColor()
+tOptions[CIRCLE_MENU_DEPTH] = 2.0
+tOptions[CIRCLE_MENU_BUTTON_RADIUS] = 35.0
+tOptions[CIRCLE_MENU_BUTTON_BORDER_WIDTH] = 2.0
+tOptions[CIRCLE_MENU_TAP_MODE] = true
+tOptions[CIRCLE_MENU_LINE_MODE] = false
+```
+* Dispay the menu as follows
+```swift
+self.circleMenuView = CKCircleMenuView(atOrigin: tOrigin, usingOptions: tOptions, withImageArray: self.circleMenuImageArray)
+self.view.addSubview(self.circleMenuView!)
+self.circleMenuView!.delegate = self
+self.circleMenuView!.openMenu()
+```
+* Implement the methods of the `CircleMenuViewDelegate` protocol to react to menu events.
+```swift
+// MARK: Circle Menu View Delegate
+
+func circleMenuActivatedButtonWithIndex(anIndex: Int32) {
+  // ...
+}
+
+func circleMenuOpened() {
+  // ...
+}
+
+func circleMenuClosed() {
+  // ...
+}
 ```
 
 ## Author

@@ -99,16 +99,16 @@ tOptions[CIRCLE_MENU_BUTTON_BORDER_WIDTH] = 2.0
 tOptions[CIRCLE_MENU_TAP_MODE] = true
 tOptions[CIRCLE_MENU_LINE_MODE] = false
 ```
-* Dispay the menu as follows
+* Dispay the menu as follows (don't forget to add the `CKCircleMenuDelegate' as protocol).
 ```swift
 self.circleMenuView = CKCircleMenuView(atOrigin: tOrigin, usingOptions: tOptions, withImageArray: self.circleMenuImageArray)
 self.view.addSubview(self.circleMenuView!)
 self.circleMenuView!.delegate = self
 self.circleMenuView!.openMenu()
 ```
-* Implement the methods of the `CircleMenuViewDelegate` protocol to react to menu events.
+* Implement the methods of the `CKCircleMenuDelegate` protocol to react to menu events.
 ```swift
-// MARK: Circle Menu View Delegate
+// MARK: Circle Menu Delegate
 
 func circleMenuActivatedButtonWithIndex(anIndex: Int32) {
   // ...

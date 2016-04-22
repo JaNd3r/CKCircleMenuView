@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,24 +16,9 @@
 		1D17B1C819B7081A007128C9 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D17B1C619B7081A007128C9 /* Main_iPhone.storyboard */; };
 		1D17B1CE19B7081A007128C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D17B1CD19B7081A007128C9 /* ViewController.m */; };
 		1D17B1D019B7081A007128C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D17B1CF19B7081A007128C9 /* Images.xcassets */; };
-		1D17B1D719B7081A007128C9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D17B1D619B7081A007128C9 /* XCTest.framework */; };
-		1D17B1D819B7081A007128C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D17B1B419B7081A007128C9 /* Foundation.framework */; };
-		1D17B1D919B7081A007128C9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D17B1B819B7081A007128C9 /* UIKit.framework */; };
-		1D17B1E119B7081A007128C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D17B1DF19B7081A007128C9 /* InfoPlist.strings */; };
-		1D17B1E319B7081A007128C9 /* CircleMenuDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D17B1E219B7081A007128C9 /* CircleMenuDemoTests.m */; };
 		1D17B33219B749F7007128C9 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 1D17B33119B749F7007128C9 /* Podfile */; };
 		BBEB6341CE0142B8945E26C6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C9B7E8C3FA46668BA7E447 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		1D17B1DA19B7081A007128C9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1D17B1A919B7081A007128C9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1D17B1B019B7081A007128C9;
-			remoteInfo = CircleMenuDemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D17B1B119B7081A007128C9 /* CircleMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,11 +35,7 @@
 		1D17B1CC19B7081A007128C9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1D17B1CD19B7081A007128C9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1D17B1CF19B7081A007128C9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		1D17B1D519B7081A007128C9 /* CircleMenuDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircleMenuDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D17B1D619B7081A007128C9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		1D17B1DE19B7081A007128C9 /* CircleMenuDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleMenuDemoTests-Info.plist"; sourceTree = "<group>"; };
-		1D17B1E019B7081A007128C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1D17B1E219B7081A007128C9 /* CircleMenuDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleMenuDemoTests.m; sourceTree = "<group>"; };
 		1D17B33119B749F7007128C9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		1ED3C349910B3862AE5887DF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A6C9B7E8C3FA46668BA7E447 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,16 +54,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1D17B1D219B7081A007128C9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1D17B1D719B7081A007128C9 /* XCTest.framework in Frameworks */,
-				1D17B1D919B7081A007128C9 /* UIKit.framework in Frameworks */,
-				1D17B1D819B7081A007128C9 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,7 +62,6 @@
 			children = (
 				1D17B33119B749F7007128C9 /* Podfile */,
 				1D17B1BA19B7081A007128C9 /* CircleMenuDemo */,
-				1D17B1DC19B7081A007128C9 /* CircleMenuDemoTests */,
 				1D17B1B319B7081A007128C9 /* Frameworks */,
 				1D17B1B219B7081A007128C9 /* Products */,
 				F29EF547E3AC5AD09F92A081 /* Pods */,
@@ -102,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				1D17B1B119B7081A007128C9 /* CircleMenuDemo.app */,
-				1D17B1D519B7081A007128C9 /* CircleMenuDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,24 +113,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1D17B1DC19B7081A007128C9 /* CircleMenuDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				1D17B1E219B7081A007128C9 /* CircleMenuDemoTests.m */,
-				1D17B1DD19B7081A007128C9 /* Supporting Files */,
-			);
-			path = CircleMenuDemoTests;
-			sourceTree = "<group>";
-		};
-		1D17B1DD19B7081A007128C9 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1D17B1DE19B7081A007128C9 /* CircleMenuDemoTests-Info.plist */,
-				1D17B1DF19B7081A007128C9 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		F29EF547E3AC5AD09F92A081 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,40 +144,17 @@
 			productReference = 1D17B1B119B7081A007128C9 /* CircleMenuDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1D17B1D419B7081A007128C9 /* CircleMenuDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1D17B1E919B7081A007128C9 /* Build configuration list for PBXNativeTarget "CircleMenuDemoTests" */;
-			buildPhases = (
-				1D17B1D119B7081A007128C9 /* Sources */,
-				1D17B1D219B7081A007128C9 /* Frameworks */,
-				1D17B1D319B7081A007128C9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1D17B1DB19B7081A007128C9 /* PBXTargetDependency */,
-			);
-			name = CircleMenuDemoTests;
-			productName = CircleMenuDemoTests;
-			productReference = 1D17B1D519B7081A007128C9 /* CircleMenuDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		1D17B1A919B7081A007128C9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "GEBIT Solutions GmbH";
-				TargetAttributes = {
-					1D17B1D419B7081A007128C9 = {
-						TestTargetID = 1D17B1B019B7081A007128C9;
-					};
-				};
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Christian Klaproth";
 			};
 			buildConfigurationList = 1D17B1AC19B7081A007128C9 /* Build configuration list for PBXProject "CircleMenuDemo" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -239,7 +167,6 @@
 			projectRoot = "";
 			targets = (
 				1D17B1B019B7081A007128C9 /* CircleMenuDemo */,
-				1D17B1D419B7081A007128C9 /* CircleMenuDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -253,14 +180,6 @@
 				1D17B1C819B7081A007128C9 /* Main_iPhone.storyboard in Resources */,
 				1D17B33219B749F7007128C9 /* Podfile in Resources */,
 				1D17B1BF19B7081A007128C9 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1D17B1D319B7081A007128C9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1D17B1E119B7081A007128C9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,23 +229,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1D17B1D119B7081A007128C9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1D17B1E319B7081A007128C9 /* CircleMenuDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1D17B1DB19B7081A007128C9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1D17B1B019B7081A007128C9 /* CircleMenuDemo */;
-			targetProxy = 1D17B1DA19B7081A007128C9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1D17B1BD19B7081A007128C9 /* InfoPlist.strings */ = {
@@ -343,14 +246,6 @@
 				1D17B1C719B7081A007128C9 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		1D17B1DF19B7081A007128C9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1D17B1E019B7081A007128C9 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -374,6 +269,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -388,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -421,7 +317,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -434,9 +330,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleMenuDemo/CircleMenuDemo-Prefix.pch";
 				INFOPLIST_FILE = "CircleMenuDemo/CircleMenuDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.cm-works.ios.CircleMenuDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -449,52 +347,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleMenuDemo/CircleMenuDemo-Prefix.pch";
 				INFOPLIST_FILE = "CircleMenuDemo/CircleMenuDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.cm-works.ios.CircleMenuDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		1D17B1EA19B7081A007128C9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CircleMenuDemo.app/CircleMenuDemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CircleMenuDemo/CircleMenuDemo-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CircleMenuDemoTests/CircleMenuDemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		1D17B1EB19B7081A007128C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CircleMenuDemo.app/CircleMenuDemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CircleMenuDemo/CircleMenuDemo-Prefix.pch";
-				INFOPLIST_FILE = "CircleMenuDemoTests/CircleMenuDemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -515,15 +375,6 @@
 			buildConfigurations = (
 				1D17B1E719B7081A007128C9 /* Debug */,
 				1D17B1E819B7081A007128C9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1D17B1E919B7081A007128C9 /* Build configuration list for PBXNativeTarget "CircleMenuDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1D17B1EA19B7081A007128C9 /* Debug */,
-				1D17B1EB19B7081A007128C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

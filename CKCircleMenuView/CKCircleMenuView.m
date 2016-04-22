@@ -24,6 +24,7 @@
 @property (nonatomic) CGFloat buttonRadius;
 @property (nonatomic) CGFloat buttonBorderWidth;
 @property (nonatomic) BOOL tapMode;
+@property (nonatomic) BOOL absurdLineMode;
 
 @property (nonatomic, weak) UIView* clippingView;
 
@@ -47,6 +48,7 @@ NSString* const CIRCLE_MENU_DEPTH = @"kCircleMenuDepth";
 NSString* const CIRCLE_MENU_BUTTON_RADIUS = @"kCircleMenuButtonRadius";
 NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth";
 NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
+NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
 
 @implementation CKCircleMenuView
 
@@ -80,6 +82,10 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
             self.buttonRadius = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_RADIUS] doubleValue];
             self.buttonBorderWidth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH] doubleValue];
             self.tapMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_TAP_MODE] boolValue];
+            self.absurdLineMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_LINE_MODE] boolValue];
+            if (self.absurdLineMode) {
+                self.startingAngle += 90.0;
+            }
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -93,6 +99,7 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
             self.buttonRadius = 39.0;
             self.buttonBorderWidth = 2.0;
             self.tapMode = NO;
+            self.absurdLineMode = NO;
         }
     }
     return self;
@@ -102,13 +109,14 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
 {
     self = [self initWithOptions:anOptionsDictionary];
     if (self) {
-        self.frame = CGRectMake(aPoint.x - self.radius - self.buttonRadius, aPoint.y - self.radius - self.buttonRadius, self.radius * 2 + self.buttonRadius * 2, self.radius * 2 + self.buttonRadius * 2);
         int tTag = 1;
         for (UIImage* img in anImageArray) {
             UIView* tView = [self createButtonViewWithImage:img andTag:tTag];
             [self.buttons addObject:tView];
-            tTag++;
+            tTag += 1;
         }
+        
+        self.frame = [self calculateFrameWithOrigin:aPoint];
     }
     return self;
 }
@@ -117,18 +125,43 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
 {
     self = [self initWithOptions:anOptionsDictionary];
     if (self) {
-        self.frame = CGRectMake(aPoint.x - self.radius - self.buttonRadius, aPoint.y - self.radius - self.buttonRadius, self.radius * 2 + self.buttonRadius * 2, self.radius * 2 + self.buttonRadius * 2);
         int tTag = 1;
         va_list args;
         va_start(args, anImage);
         for (UIImage* img = anImage; img != nil; img = va_arg(args, UIImage*)) {
             UIView* tView = [self createButtonViewWithImage:img andTag:tTag];
             [self.buttons addObject:tView];
-            tTag++;
+            tTag += 1;
         }
         va_end(args);
+        
+        self.frame = [self calculateFrameWithOrigin:aPoint];
     }
     return self;
+}
+
+- (CGRect)calculateFrameWithOrigin:(CGPoint)aPoint {
+    
+    CGRect tFrame;
+    
+    if (self.absurdLineMode) {
+        
+        // calculate maximum bounding box, independent of actual direction
+        CGFloat tMaximumButtonDistance = (2 * self.buttonRadius + 8.0) * self.buttons.count;
+        tFrame = CGRectMake(aPoint.x - self.radius - tMaximumButtonDistance,
+                            aPoint.y - self.radius - tMaximumButtonDistance,
+                            self.radius * 2 + tMaximumButtonDistance * 2,
+                            self.radius * 2 + tMaximumButtonDistance * 2);
+        
+    } else {
+    
+        tFrame = CGRectMake(aPoint.x - self.radius - self.buttonRadius,
+                            aPoint.y - self.radius - self.buttonRadius,
+                            self.radius * 2 + self.buttonRadius * 2,
+                            self.radius * 2 + self.buttonRadius * 2);
+    }
+    
+    return tFrame;
 }
 
 /**
@@ -141,9 +174,15 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
 - (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag
 {
     UIButton* tButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGFloat tButtonViewX = self.buttonRadius - anImage.size.width / 2;
-    CGFloat tButtonViewY = self.buttonRadius - anImage.size.height / 2;
-    tButton.frame = CGRectMake(tButtonViewX, tButtonViewY, anImage.size.width, anImage.size.height);
+    
+    if (self.absurdLineMode) {
+        tButton.frame = CGRectMake(0.0, 0.0, self.buttonRadius * 2, self.buttonRadius * 2);
+    } else {
+        CGFloat tButtonViewX = self.buttonRadius - anImage.size.width / 2;
+        CGFloat tButtonViewY = self.buttonRadius - anImage.size.height / 2;
+        tButton.frame = CGRectMake(tButtonViewX, tButtonViewY, anImage.size.width, anImage.size.height);
+    }
+    
     [tButton setImage:anImage forState:UIControlStateNormal];
     tButton.tag = aTag + TAG_BUTTON_OFFSET;
     
@@ -192,26 +231,19 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
         tMinY = tClippingFrame.origin.y;
     }
 
-    int tButtonCount = (int)self.buttons.count;
-    CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
-    CGFloat tRadius = self.radius;
     int tCounter = 0;
     // issue #1 - align buttons perfectly on circle of max angle is 360.0
     if (self.maxAngle == 360.0) {
         self.maxAngle = 360.0 - 360.0 / self.buttons.count;
     }
+
     for (UIView* tView in self.buttons) {
-        CGFloat tCurrentWinkel;
-        if (tCounter == 0) {
-            tCurrentWinkel = self.startingAngle + 0.0;
-        } else if (tCounter > 0 && tCounter < tButtonCount) {
-            tCurrentWinkel = self.startingAngle + (self.maxAngle / (tButtonCount - 1)) * tCounter;
-        } else {
-            tCurrentWinkel = self.startingAngle + self.maxAngle;
-        }
+
         CGSize tSize = tView.frame.size;
-        CGFloat tX = tOrigin.x - (tRadius * cosf(tCurrentWinkel / 180.0 * M_PI)) - (tSize.width / 2);
-        CGFloat tY = tOrigin.y - (tRadius * sinf(tCurrentWinkel / 180.0 * M_PI)) - (tSize.width / 2);
+        CGPoint tPoint = [self calculateButtonPositionAtIndex:tCounter];
+        
+        CGFloat tX = tPoint.x;
+        CGFloat tY = tPoint.y;
         
         if (tX > tMaxX) tX = tMaxX;
         if (tX < tMinX) tX = tMinX;
@@ -221,6 +253,26 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
         CGRect tRect = CGRectMake(tX, tY, tSize.width, tSize.height);
         tView.frame = tRect;
         tCounter++;
+    }
+}
+
+- (CGPoint)calculateButtonPositionAtIndex:(int)index
+{
+    if (self.absurdLineMode) {
+        // Align button positions along a line starting at origin with startingAngle
+        CGSize tSize = [self.buttons[index] frame].size;
+        CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+        CGFloat tDistance = self.radius + (index * (2 * self.buttonRadius + 8.0));
+        CGFloat tX = tOrigin.x - (tDistance * cosf(self.startingAngle / 180.0 * M_PI)) - (tSize.width / 2);
+        CGFloat tY = tOrigin.y - (tDistance * sinf(self.startingAngle / 180.0 * M_PI)) - (tSize.width / 2);
+        return CGPointMake(tX, tY);
+    } else {
+        CGFloat tCurrentAngle = self.startingAngle + (self.maxAngle / (self.buttons.count - 1)) * index;
+        CGSize tSize = [self.buttons[index] frame].size;
+        CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+        CGFloat tX = tOrigin.x - (self.radius * cosf(tCurrentAngle / 180.0 * M_PI)) - (tSize.width / 2);
+        CGFloat tY = tOrigin.y - (self.radius * sinf(tCurrentAngle / 180.0 * M_PI)) - (tSize.width / 2);
+        return CGPointMake(tX, tY);
     }
 }
 

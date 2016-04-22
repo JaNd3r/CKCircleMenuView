@@ -40,6 +40,7 @@ extern NSString* const CIRCLE_MENU_DEPTH;
 extern NSString* const CIRCLE_MENU_BUTTON_RADIUS;
 extern NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH;
 extern NSString* const CIRCLE_MENU_TAP_MODE;
+extern NSString* const CIRCLE_MENU_LINE_MODE;
 
 typedef enum {
     CircleMenuDirectionUp = 1,

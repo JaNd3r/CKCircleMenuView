@@ -267,7 +267,7 @@ NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
         CGFloat tY = tOrigin.y - (tDistance * sinf(self.startingAngle / 180.0 * M_PI)) - (tSize.width / 2);
         return CGPointMake(tX, tY);
     } else {
-        CGFloat tCurrentAngle = self.startingAngle + (self.maxAngle / (self.buttons.count - 1)) * index;
+        CGFloat tCurrentAngle = self.startingAngle + (self.maxAngle / (self.buttons.count)) * index;
         CGSize tSize = [self.buttons[index] frame].size;
         CGPoint tOrigin = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
         CGFloat tX = tOrigin.x - (self.radius * cosf(tCurrentAngle / 180.0 * M_PI)) - (tSize.width / 2);

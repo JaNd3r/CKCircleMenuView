@@ -37,6 +37,8 @@ There are several options that can be adjusted before presenting the menu.
 * Depth effect by using drop shadow and scaling (default = NO)
 * Tap mode (default = NO)
 * Line mode (default = NO)
+* Tint mode uses the provided button image as an alpha mask, just like `UIButtonType.System` does (default = NO)
+* Background blur mode ignores the background color and uses a `UIVisualEffectsView` as the button's background (default = NO)
 
 ## Installation
 
@@ -98,6 +100,8 @@ tOptions[CIRCLE_MENU_BUTTON_RADIUS] = 35.0
 tOptions[CIRCLE_MENU_BUTTON_BORDER_WIDTH] = 2.0
 tOptions[CIRCLE_MENU_TAP_MODE] = true
 tOptions[CIRCLE_MENU_LINE_MODE] = false
+tOptions[CIRCLE_MENU_BUTTON_TINT] = false
+tOptions[CIRCLE_MENU_BACKGROUND_BLUR] = false
 ```
 * Dispay the menu as follows (don't forget to add the `CKCircleMenuDelegate' as protocol).
 ```swift

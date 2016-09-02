@@ -119,6 +119,8 @@
         [tOptions setValue:[NSDecimalNumber decimalNumberWithString:@"2.5"] forKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH];
         [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_TAP_MODE];
         [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_LINE_MODE];
+        [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_BACKGROUND_BLUR];
+        [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_BUTTON_TINT];
         
         CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
         tMenu.delegate = self;
@@ -153,6 +155,8 @@
         [tOptions setValue:[NSDecimalNumber decimalNumberWithString:@"2.5"] forKey:CIRCLE_MENU_BUTTON_BORDER_WIDTH];
         [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_TAP_MODE];
         [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_LINE_MODE];
+        [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_BACKGROUND_BLUR];
+        [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_BUTTON_TINT];
         
         CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
         tMenu.delegate = self;

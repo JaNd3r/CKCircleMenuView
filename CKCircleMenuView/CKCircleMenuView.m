@@ -25,6 +25,8 @@
 @property (nonatomic) CGFloat buttonBorderWidth;
 @property (nonatomic) BOOL tapMode;
 @property (nonatomic) BOOL absurdLineMode;
+@property (nonatomic) BOOL visualFxMode;
+@property (nonatomic) BOOL buttonTintMode;
 
 @property (nonatomic, weak) UIView* clippingView;
 
@@ -49,6 +51,8 @@ NSString* const CIRCLE_MENU_BUTTON_RADIUS = @"kCircleMenuButtonRadius";
 NSString* const CIRCLE_MENU_BUTTON_BORDER_WIDTH = @"kCircleMenuButtonBorderWidth";
 NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
 NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
+NSString* const CIRCLE_MENU_BACKGROUND_BLUR = @"kCircleMenuBackgroundBlur";
+NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
 
 @implementation CKCircleMenuView
 
@@ -86,6 +90,8 @@ NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
             if (self.absurdLineMode) {
                 self.startingAngle += 90.0;
             }
+            self.visualFxMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BACKGROUND_BLUR] boolValue];
+            self.buttonTintMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_TINT] boolValue];
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -100,6 +106,8 @@ NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
             self.buttonBorderWidth = 2.0;
             self.tapMode = NO;
             self.absurdLineMode = NO;
+            self.visualFxMode = NO;
+            self.buttonTintMode = NO;
         }
     }
     return self;
@@ -173,7 +181,12 @@ NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
  */
 - (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag
 {
-    UIButton* tButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton* tButton;
+    if (self.buttonTintMode) {
+        tButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    } else {
+        tButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    }
     
     if (self.absurdLineMode) {
         tButton.frame = CGRectMake(0.0, 0.0, self.buttonRadius * 2, self.buttonRadius * 2);
@@ -206,7 +219,17 @@ NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
         UITapGestureRecognizer* temporaryRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
         [self addGestureRecognizer:temporaryRecognizer];
     }
-    
+
+    if (self.visualFxMode) {
+        UIVisualEffectView* tEffectsView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        tEffectsView.frame = CGRectMake(0.0, 0.0, self.buttonRadius * 2, self.buttonRadius * 2);
+        tInnerView.backgroundColor = [UIColor clearColor];
+        [tEffectsView.contentView addSubview:tInnerView];
+        tEffectsView.clipsToBounds = YES;
+        tEffectsView.layer.cornerRadius = self.buttonRadius;
+        return tEffectsView;
+    }
+
     return tInnerView;
 }
 

@@ -27,6 +27,7 @@
 @property (nonatomic) BOOL absurdLineMode;
 @property (nonatomic) BOOL visualFxMode;
 @property (nonatomic) BOOL buttonTintMode;
+@property (nonatomic) BOOL allowAnimationInteraction;
 
 @property (nonatomic, weak) UIView* clippingView;
 
@@ -53,6 +54,7 @@ NSString* const CIRCLE_MENU_TAP_MODE = @"kCircleMenuTapMode";
 NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
 NSString* const CIRCLE_MENU_BACKGROUND_BLUR = @"kCircleMenuBackgroundBlur";
 NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
+NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION = @"kCircleMenuAllowAnimationInteraction";
 
 @implementation CKCircleMenuView
 
@@ -92,6 +94,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
             }
             self.visualFxMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BACKGROUND_BLUR] boolValue];
             self.buttonTintMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_TINT] boolValue];
+            self.allowAnimationInteraction = [[anOptionsDictionary valueForKey:CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION] boolValue];
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -108,6 +111,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
             self.absurdLineMode = NO;
             self.visualFxMode = NO;
             self.buttonTintMode = NO;
+            self.allowAnimationInteraction = NO;
         }
     }
     return self;
@@ -123,7 +127,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
             [self.buttons addObject:tView];
             tTag += 1;
         }
-        
+
         self.frame = [self calculateFrameWithOrigin:aPoint];
     }
     return self;
@@ -142,33 +146,33 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
             tTag += 1;
         }
         va_end(args);
-        
+
         self.frame = [self calculateFrameWithOrigin:aPoint];
     }
     return self;
 }
 
 - (CGRect)calculateFrameWithOrigin:(CGPoint)aPoint {
-    
+
     CGRect tFrame;
-    
+
     if (self.absurdLineMode) {
-        
+
         // calculate maximum bounding box, independent of actual direction
         CGFloat tMaximumButtonDistance = (2 * self.buttonRadius + 8.0) * self.buttons.count;
         tFrame = CGRectMake(aPoint.x - self.radius - tMaximumButtonDistance,
                             aPoint.y - self.radius - tMaximumButtonDistance,
                             self.radius * 2 + tMaximumButtonDistance * 2,
                             self.radius * 2 + tMaximumButtonDistance * 2);
-        
+
     } else {
-    
+
         tFrame = CGRectMake(aPoint.x - self.radius - self.buttonRadius,
                             aPoint.y - self.radius - self.buttonRadius,
                             self.radius * 2 + self.buttonRadius * 2,
                             self.radius * 2 + self.buttonRadius * 2);
     }
-    
+
     return tFrame;
 }
 
@@ -187,7 +191,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
     } else {
         tButton = [UIButton buttonWithType:UIButtonTypeCustom];
     }
-    
+
     if (self.absurdLineMode) {
         tButton.frame = CGRectMake(0.0, 0.0, self.buttonRadius * 2, self.buttonRadius * 2);
     } else {
@@ -195,10 +199,10 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
         CGFloat tButtonViewY = self.buttonRadius - anImage.size.height / 2;
         tButton.frame = CGRectMake(tButtonViewX, tButtonViewY, anImage.size.width, anImage.size.height);
     }
-    
+
     [tButton setImage:anImage forState:UIControlStateNormal];
     tButton.tag = aTag + TAG_BUTTON_OFFSET;
-    
+
     UIView* tInnerView = [[CKRoundView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.buttonRadius * 2, self.buttonRadius * 2)];
     tInnerView.backgroundColor = self.innerViewColor;
     tInnerView.opaque = YES;
@@ -213,7 +217,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
 
     tInnerView.tag = aTag + TAG_INNER_VIEW_OFFSET;
     [tInnerView addSubview:tButton];
-    
+
     if (self.tapMode) {
         [tButton addTarget:self action:@selector(circleButtonTapped:) forControlEvents:UIControlEventTouchDown];
         UITapGestureRecognizer* temporaryRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
@@ -264,15 +268,15 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
 
         CGSize tSize = tView.frame.size;
         CGPoint tPoint = [self calculateButtonPositionAtIndex:tCounter];
-        
+
         CGFloat tX = tPoint.x;
         CGFloat tY = tPoint.y;
-        
+
         if (tX > tMaxX) tX = tMaxX;
         if (tX < tMinX) tX = tMinX;
         if (tY > tMaxY) tY = tMaxY;
         if (tY < tMinY) tY = tMinY;
-        
+
         CGRect tRect = CGRectMake(tX, tY, tSize.width, tSize.height);
         tView.frame = tRect;
         tCounter++;
@@ -327,10 +331,10 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
 - (void)openMenuWithRecognizer:(UIGestureRecognizer*)aRecognizer
 {
     self.recognizer = aRecognizer;
-    
+
     // use target action to get notified upon gesture changes
     [self.recognizer addTarget:self action:@selector(gestureChanged:)];
-    
+
     [self openMenu];
 }
 
@@ -349,14 +353,14 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
     CGFloat tDelay = 0.0;
     for (UIView* tButtonView in self.buttons) {
         tDelay = tDelay + self.animationDelay;
-        [UIView animateWithDuration:0.6 delay:tDelay usingSpringWithDamping:0.5 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.6 delay:tDelay usingSpringWithDamping:0.5 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseOut|(self.allowAnimationInteraction ? UIViewAnimationOptionAllowUserInteraction : 0) animations:^{
             tButtonView.alpha = 1.0;
             tButtonView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
-        
+
         }];
     }
-    
+
     if (self.delegate && [self.delegate respondsToSelector:@selector(circleMenuOpened)]) {
         [self.delegate circleMenuOpened];
     }
@@ -370,7 +374,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
     if (!self.tapMode) {
         [self.recognizer removeTarget:self action:@selector(gestureChanged:)];
     }
-    
+
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         for (UIView* tButtonView in self.buttons) {
             if (self.hoverTag > 0 && self.hoverTag == [self bareTagOfView:tButtonView]) {
@@ -395,12 +399,12 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
             // this button is already the active one
             return;
         }
-        
+
         self.hoverTag = tTag;
-        
+
         // display all (other) buttons in normal state
         [self resetButtonState];
-        
+
         // display this button in active color
         tTag = tTag + TAG_INNER_VIEW_OFFSET;
         UIView* tInnerView = [self viewWithTag:tTag];
@@ -410,7 +414,7 @@ NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
         }
     } else {
         // the view "hit" is none of the buttons -> display all in normal state
-        [self resetButtonState];        
+        [self resetButtonState];
         self.hoverTag = 0;
     }
 }

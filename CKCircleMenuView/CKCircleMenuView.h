@@ -43,6 +43,7 @@ extern NSString* const CIRCLE_MENU_TAP_MODE;
 extern NSString* const CIRCLE_MENU_LINE_MODE;
 extern NSString* const CIRCLE_MENU_BACKGROUND_BLUR;
 extern NSString* const CIRCLE_MENU_BUTTON_TINT;
+extern NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION;
 
 typedef enum {
     CircleMenuDirectionUp = 1,
@@ -81,7 +82,7 @@ typedef enum {
  * @param aRecognizer the UILongPressGestureRecognizer that has been
  *                    used to detect the long press. This recognizer
  *                    will be used to track further drag gestures to
- *                    select a button and to close the menu, once the 
+ *                    select a button and to close the menu, once the
  *                    gesture ends.
  */
 - (void)openMenuWithRecognizer:(UIGestureRecognizer*)aRecognizer;
@@ -103,4 +104,3 @@ typedef enum {
 @interface CKRoundView : UIView
 
 @end
-

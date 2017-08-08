@@ -55,6 +55,7 @@ NSString* const CIRCLE_MENU_LINE_MODE = @"kCircleMenuLineMode";
 NSString* const CIRCLE_MENU_BACKGROUND_BLUR = @"kCircleMenuBackgroundBlur";
 NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
 NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION = @"kCircleMenuAllowAnimationInteraction";
+NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
 
 @implementation CKCircleMenuView
 
@@ -83,6 +84,10 @@ NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION = @"kCircleMenuAllowAnim
                 case CircleMenuDirectionLeft:
                     self.startingAngle = 270.0;
                     break;
+            }
+            // if CIRCLE_MENU_STARTING_ANGLE is set, override startingAngle derived from direction
+            if ([anOptionsDictionary valueForKey:CIRCLE_MENU_STARTING_ANGLE]) {
+                self.startingAngle = [[anOptionsDictionary valueForKey:CIRCLE_MENU_STARTING_ANGLE] doubleValue];
             }
             self.depth = [[anOptionsDictionary valueForKey:CIRCLE_MENU_DEPTH] boolValue];
             self.buttonRadius = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_RADIUS] doubleValue];

@@ -44,6 +44,7 @@ extern NSString* const CIRCLE_MENU_LINE_MODE;
 extern NSString* const CIRCLE_MENU_BACKGROUND_BLUR;
 extern NSString* const CIRCLE_MENU_BUTTON_TINT;
 extern NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION;
+extern NSString* const CIRCLE_MENU_STARTING_ANGLE;
 
 typedef enum {
     CircleMenuDirectionUp = 1,

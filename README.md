@@ -67,8 +67,7 @@ Basically what you have to do is: In your Storyboard add a gesture recognizer fo
 
 * Determine the point where the triggering event occured (center of the `UIButton`'s frame or location of the long press gesture in your view). This will be used as the origin (center) of the `CKCircleMenuView`.
 ```swift
-let tPoint = CGPointMake(CGRectGetMidX(button.frame), CGRectGetMidY(button.frame))
-let tOrigin = self.view.convertPoint(tPoint, fromView: sender)
+let tPoint = CGPoint(x: button.frame.midX, y: button.frame.midY)
 ```
 * Create an array of images which will be used to populate your menu with buttons (e.g. in `viewDidLoad`, if the menu's content isn't dynamic).
 ```swift
@@ -105,7 +104,7 @@ tOptions[CIRCLE_MENU_BACKGROUND_BLUR] = false
 ```
 * Dispay the menu as follows (don't forget to add the `CKCircleMenuDelegate' as protocol).
 ```swift
-self.circleMenuView = CKCircleMenuView(atOrigin: tOrigin, usingOptions: tOptions, withImageArray: self.circleMenuImageArray)
+self.circleMenuView = CKCircleMenuView(atOrigin: tPoint, usingOptions: tOptions, withImageArray: self.circleMenuImageArray)
 self.view.addSubview(self.circleMenuView!)
 self.circleMenuView!.delegate = self
 self.circleMenuView!.openMenu()
@@ -114,7 +113,7 @@ self.circleMenuView!.openMenu()
 ```swift
 // MARK: Circle Menu Delegate
 
-func circleMenuActivatedButtonWithIndex(anIndex: Int32) {
+func circleMenuActivatedButton(with anIndex: Int32) {
   // ...
 }
 

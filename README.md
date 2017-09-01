@@ -101,14 +101,17 @@ tOptions[CIRCLE_MENU_TAP_MODE] = true as AnyObject
 tOptions[CIRCLE_MENU_LINE_MODE] = false as AnyObject
 tOptions[CIRCLE_MENU_BUTTON_TINT] = false as AnyObject
 tOptions[CIRCLE_MENU_BACKGROUND_BLUR] = false as AnyObject
+tOptions[CIRCLE_MENU_BUTTON_TITLE_VISIBLE] = true as AnyObject
+tOptions[CIRCLE_MENU_BUTTON_TITLE_FONT_SIZE] = 11.0 as AnyObject
 ```
-* Dispay the menu as follows (don't forget to add the `CKCircleMenuDelegate' as protocol).
+* Dispay the menu as follows (don't forget to add the `CKCircleMenuDelegate` as protocol).
 ```swift
 self.circleMenuView = CKCircleMenuView(atOrigin: tPoint, usingOptions: tOptions, withImageArray: self.circleMenuImageArray)
 self.view.addSubview(self.circleMenuView!)
 self.circleMenuView!.delegate = self
 self.circleMenuView!.openMenu()
 ```
+* Optionally you can pass an array of titles (strings) as the fourth parameter. The titles will be dispayed below the corresponding icon (same index in array). See the demo app for an example on how to use titles. Note, that these titles may only consist of a maximum of about 8 characters, as there is not much space within the button's bounds.
 * Implement the methods of the `CKCircleMenuDelegate` protocol to react to menu events.
 ```swift
 // MARK: Circle Menu Delegate

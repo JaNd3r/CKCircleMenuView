@@ -87,20 +87,20 @@ override func viewDidLoad() {
 * Create a dictionary containing the configuration parameters for the menu.
 ```swift
 var tOptions = Dictionary<String, AnyObject>()
-tOptions[CIRCLE_MENU_OPENING_DELAY] = 0.1
-tOptions[CIRCLE_MENU_MAX_ANGLE] = 180.0
-tOptions[CIRCLE_MENU_RADIUS] = 105.0
-tOptions[CIRCLE_MENU_DIRECTION] = Int(CircleMenuDirectionUp.rawValue)
+tOptions[CIRCLE_MENU_OPENING_DELAY] = 0.1 as AnyObject
+tOptions[CIRCLE_MENU_MAX_ANGLE] = 180.0 as AnyObject
+tOptions[CIRCLE_MENU_RADIUS] = 105.0 as AnyObject
+tOptions[CIRCLE_MENU_DIRECTION] = Int(CircleMenuDirectionUp.rawValue) as AnyObject
 tOptions[CIRCLE_MENU_BUTTON_BACKGROUND_NORMAL] = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
 tOptions[CIRCLE_MENU_BUTTON_BACKGROUND_ACTIVE] = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.8)
-tOptions[CIRCLE_MENU_BUTTON_BORDER] = UIColor.whiteColor()
-tOptions[CIRCLE_MENU_DEPTH] = 2.0
-tOptions[CIRCLE_MENU_BUTTON_RADIUS] = 35.0
-tOptions[CIRCLE_MENU_BUTTON_BORDER_WIDTH] = 2.0
-tOptions[CIRCLE_MENU_TAP_MODE] = true
-tOptions[CIRCLE_MENU_LINE_MODE] = false
-tOptions[CIRCLE_MENU_BUTTON_TINT] = false
-tOptions[CIRCLE_MENU_BACKGROUND_BLUR] = false
+tOptions[CIRCLE_MENU_BUTTON_BORDER] = UIColor.white
+tOptions[CIRCLE_MENU_DEPTH] = 2.0 as AnyObject
+tOptions[CIRCLE_MENU_BUTTON_RADIUS] = 35.0 as AnyObject
+tOptions[CIRCLE_MENU_BUTTON_BORDER_WIDTH] = 2.0 as AnyObject
+tOptions[CIRCLE_MENU_TAP_MODE] = true as AnyObject
+tOptions[CIRCLE_MENU_LINE_MODE] = false as AnyObject
+tOptions[CIRCLE_MENU_BUTTON_TINT] = false as AnyObject
+tOptions[CIRCLE_MENU_BACKGROUND_BLUR] = false as AnyObject
 ```
 * Dispay the menu as follows (don't forget to add the `CKCircleMenuDelegate' as protocol).
 ```swift

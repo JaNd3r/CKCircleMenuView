@@ -45,6 +45,8 @@ extern NSString* const CIRCLE_MENU_BACKGROUND_BLUR;
 extern NSString* const CIRCLE_MENU_BUTTON_TINT;
 extern NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION;
 extern NSString* const CIRCLE_MENU_STARTING_ANGLE;
+extern NSString* const CIRCLE_MENU_BUTTON_TITLE_VISIBLE;
+extern NSString* const CIRCLE_MENU_BUTTON_TITLE_FONT_SIZE;
 
 typedef enum {
     CircleMenuDirectionUp = 1,
@@ -76,6 +78,18 @@ typedef enum {
  *                     (64x64 px for retina)
  */
 - (id)initAtOrigin:(CGPoint)aPoint usingOptions:(NSDictionary*)anOptionsDictionary withImageArray:(NSArray*)anImageArray;
+
+/**
+ * Initializes the CKCircleMenuView.
+ * @param aPoint the center of the menu's circle
+ * @param anOptionsDictionary optional configuration, may be nil
+ * @param anImageArray array of images to be used for the buttons,
+ *                     currently icon images should be 32x32 points
+ *                     (64x64 px for retina)
+ * @param aTitleArray array of strings with titles that are displayed
+ *                    below the button icons
+ */
+- (id)initAtOrigin:(CGPoint)aPoint usingOptions:(NSDictionary*)anOptionsDictionary withImageArray:(NSArray*)anImageArray andTitles:(NSArray*)aTitleArray;
 
 /**
  * Opens the menu with the buttons and settings specified in the

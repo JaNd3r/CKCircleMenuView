@@ -28,6 +28,8 @@
 @property (nonatomic) BOOL visualFxMode;
 @property (nonatomic) BOOL buttonTintMode;
 @property (nonatomic) BOOL allowAnimationInteraction;
+@property (nonatomic) BOOL buttonTitleVisible;
+@property (nonatomic) CGFloat buttonTitleFontSize;
 
 @property (nonatomic, weak) UIView* clippingView;
 
@@ -56,6 +58,8 @@ NSString* const CIRCLE_MENU_BACKGROUND_BLUR = @"kCircleMenuBackgroundBlur";
 NSString* const CIRCLE_MENU_BUTTON_TINT = @"kCircleMenuButtonTint";
 NSString* const CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION = @"kCircleMenuAllowAnimationInteraction";
 NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
+NSString* const CIRCLE_MENU_BUTTON_TITLE_VISIBLE = @"kCircleMenuButtonTitleVisible";
+NSString* const CIRCLE_MENU_BUTTON_TITLE_FONT_SIZE = @"kCircleMenuButtonTitleFontSize";
 
 @implementation CKCircleMenuView
 
@@ -100,6 +104,11 @@ NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
             self.visualFxMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BACKGROUND_BLUR] boolValue];
             self.buttonTintMode = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_TINT] boolValue];
             self.allowAnimationInteraction = [[anOptionsDictionary valueForKey:CIRCLE_MENU_ALLOW_ANIMATION_INTERACTION] boolValue];
+            self.buttonTitleVisible = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_TITLE_VISIBLE] boolValue];
+            self.buttonTitleFontSize = [[anOptionsDictionary valueForKey:CIRCLE_MENU_BUTTON_TITLE_FONT_SIZE] doubleValue];
+            if (!self.buttonTitleFontSize) {
+                self.buttonTitleFontSize = 11.0;
+            }
         } else {
             // using some default settings
             self.innerViewColor = [UIColor colorWithRed:0.0 green:0.25 blue:0.5 alpha:1.0];
@@ -117,6 +126,8 @@ NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
             self.visualFxMode = NO;
             self.buttonTintMode = NO;
             self.allowAnimationInteraction = NO;
+            self.buttonTitleVisible = NO;
+            self.buttonTitleFontSize = 11.0;
         }
     }
     return self;
@@ -124,15 +135,26 @@ NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
 
 - (id)initAtOrigin:(CGPoint)aPoint usingOptions:(NSDictionary *)anOptionsDictionary withImageArray:(NSArray *)anImageArray
 {
+    self = [self initAtOrigin:aPoint usingOptions:anOptionsDictionary withImageArray:anImageArray andTitles:@[]];
+    return self;
+}
+
+- (id)initAtOrigin:(CGPoint)aPoint usingOptions:(NSDictionary*)anOptionsDictionary withImageArray:(NSArray*)anImageArray andTitles:(NSArray*)aTitleArray;
+{
     self = [self initWithOptions:anOptionsDictionary];
     if (self) {
         int tTag = 1;
         for (UIImage* img in anImageArray) {
-            UIView* tView = [self createButtonViewWithImage:img andTag:tTag];
+            UIView* tView;
+            if ([aTitleArray count] >= tTag) {
+                tView = [self createButtonViewWithImage:img andTag:tTag andTitle:aTitleArray[tTag-1]];
+            } else {
+                tView = [self createButtonViewWithImage:img andTag:tTag andTitle:nil];
+            }
             [self.buttons addObject:tView];
             tTag += 1;
         }
-
+        
         self.frame = [self calculateFrameWithOrigin:aPoint];
     }
     return self;
@@ -146,7 +168,7 @@ NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
         va_list args;
         va_start(args, anImage);
         for (UIImage* img = anImage; img != nil; img = va_arg(args, UIImage*)) {
-            UIView* tView = [self createButtonViewWithImage:img andTag:tTag];
+            UIView* tView = [self createButtonViewWithImage:img andTag:tTag andTitle:nil];
             [self.buttons addObject:tView];
             tTag += 1;
         }
@@ -188,7 +210,7 @@ NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
  * @param aTag unique identifier (should be index + 1)
  * @return UIView to be used as button
  */
-- (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag
+- (UIView*)createButtonViewWithImage:(UIImage*)anImage andTag:(int)aTag andTitle:(NSString*)aTitle
 {
     UIButton* tButton;
     if (self.buttonTintMode) {
@@ -218,6 +240,20 @@ NSString* const CIRCLE_MENU_STARTING_ANGLE = @"kCircleMenuStartingAngle";
 
     if (self.depth) {
         [self applyInactiveDepthToButtonView:tInnerView];
+    }
+
+    // Support for displaying button titles
+    if (self.buttonTitleVisible && aTitle) {
+        UILabel* tLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, self.buttonRadius * 2 - self.buttonTitleFontSize * 2.15, self.buttonRadius * 2, self.buttonTitleFontSize + 2.0)];
+        tLabel.textAlignment = NSTextAlignmentCenter;
+        tLabel.font = [UIFont systemFontOfSize:self.buttonTitleFontSize];
+        tLabel.textColor = self.borderViewColor;
+        tLabel.text = aTitle;
+        tLabel.userInteractionEnabled = NO;
+        [tInnerView addSubview:tLabel];
+        
+        // Make some space for label below button
+        tButton.layer.affineTransform = CGAffineTransformMakeTranslation(0.0, -self.buttonTitleFontSize / 1.9);
     }
 
     tInnerView.tag = aTag + TAG_INNER_VIEW_OFFSET;

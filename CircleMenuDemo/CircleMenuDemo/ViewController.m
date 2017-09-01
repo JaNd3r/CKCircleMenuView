@@ -121,8 +121,9 @@
         [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_LINE_MODE];
         [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_BACKGROUND_BLUR];
         [tOptions setValue:[NSNumber numberWithBool:NO] forKey:CIRCLE_MENU_BUTTON_TINT];
+        [tOptions setValue:[NSNumber numberWithBool:YES] forKey:CIRCLE_MENU_BUTTON_TITLE_VISIBLE];
         
-        CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray];
+        CKCircleMenuView* tMenu = [[CKCircleMenuView alloc] initAtOrigin:tPoint usingOptions:tOptions withImageArray:self.imageArray andTitles:@[@"Trash"]];
         tMenu.delegate = self;
         [self.demoAreaLabel addSubview:tMenu];
         [tMenu openMenuWithRecognizer:sender];
